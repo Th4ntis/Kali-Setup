@@ -7,7 +7,7 @@
 
 setup() {
     sudo apt update && sudo apt upgrade -y
-    sudo apt install -y neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms
+    sudo apt install -y terminator neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms flameshot
 
     chrome_install
     rockyou_unzip
