@@ -17,6 +17,7 @@ setup() {
     tmux_plugins_install
     dotfile_setup
     zsh_setup
+    power_setup
     finish
     }
 
@@ -77,6 +78,10 @@ zsh_setup() {
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
     cp ~/dotfiles/zsh/.zshrc ~/
+    }
+
+power_setup() {
+    wget https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     }
 
 finish() {
