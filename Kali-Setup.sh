@@ -26,7 +26,7 @@ chrome_install() {
     sudo rm -f /tmp/google-chrome-stable_current_amd64.deb
     }
 
-rockyou_unzip() }
+rockyou_unzip() {
     cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
     }
 
@@ -83,4 +83,4 @@ finish() {
     echo -e "All finished!\n"
     }
 
-install
+setup
