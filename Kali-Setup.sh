@@ -8,13 +8,13 @@
 setup() {
     sudo apt update && sudo apt upgrade -y
     sudo apt install -y terminator neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms flameshot
-
     chrome_install
     rockyou_unzip
     seclists_install
     nessus_install
     fonts_setup
     tmux_plugins_install
+    joplin_install
     zsh_setup
     power_setup
     finish
@@ -60,6 +60,10 @@ tmux_plugins_install() {
     git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
     }
 
+joplin_install() {
+    wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
+    }
+
 zsh_setup() {
     git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -74,6 +78,7 @@ power_setup() {
     }
 
 finish() {
+    sudo apt autoremove -y
     clear && echo -e "\n All finished!\n"
     }
 
