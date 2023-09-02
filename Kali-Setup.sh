@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # Kali-Setup.sh  Author: Th4ntis
-# 
+# git clone https://github.com/Th4ntis/Kali-Setup.git
 #
 # Standard Disclaimer: Author assumes no liability for any damage
 
 setup() {
     sudo apt update && sudo apt upgrade -y
-    sudo apt install -y neo4j bloodhound amass libu2f-udev
+    sudo apt install -y neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms
 
     chrome_install
     rockyou_unzip
@@ -82,4 +82,5 @@ zsh_setup() {
 finish() {
     echo -e "All finished!\n"
     }
+
 install
