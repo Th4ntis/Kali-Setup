@@ -15,14 +15,13 @@ setup() {
     nessus_install
     fonts_setup
     tmux_plugins_install
-    dotfile_setup
     zsh_setup
     power_setup
     finish
     }
 
 chrome_install() {
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
+    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
     sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
     sudo rm -f /tmp/google-chrome-stable_current_amd64.deb
     }
@@ -32,7 +31,7 @@ rockyou_unzip() {
     }
 
 seclists_install() {
-    sudo wget https://github.com/danielmiessler/SecLists/archive/master.zip -O /tmp/SecList.zip
+    sudo wget -q https://github.com/danielmiessler/SecLists/archive/master.zip -O /tmp/SecList.zip
     sudo unzip -o /tmp/SecList.zip -d /usr/share/seclists
     sudo rm -f /tmp/SecList.zip
     }
@@ -47,45 +46,35 @@ nessus_install() {
 
 fonts_setup() {
     sudo mkdir /usr/share/fonts/truetype/MesloLGS
-    wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-    wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-    wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-    wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
     sudo mv *.ttf /usr/share/fonts/truetype/MesloLGS/
     }
 
 tmux_plugins_install() {
-    echo -e "\n Tmux Plugins \n"
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     git clone https://github.com/tmux-plugins/tmux-battery ~/.tmux/plugins/tmux-battery
     git clone https://github.com/tmux-plugins/tmux-cpu ~/.tmux/plugins/tmux-cpu
     git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
-    echo -e "\n Tmux Plugins Complete \n"
-    sleep 2
-    }
-
-dotfile_setup() {
-    echo -e "\n Setting up DotFiles \n"
-    git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
-    cp ~/dotfiles/zsh/.zshrc ~/
-    cp ~/dotfiles/tmux/.tmux.conf ~/
-    cp ~/dotfiles/terminator/config ~/.config/terminator/
-    echo -e "\n DotFiles done \n"
-    sleep 2
     }
 
 zsh_setup() {
+    git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
     cp ~/dotfiles/zsh/.zshrc ~/
+    cp ~/dotfiles/tmux/.tmux.conf ~/
+    cp ~/dotfiles/terminator/config ~/.config/terminator/
     }
 
 power_setup() {
-    wget https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+    wget -q https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     }
 
 finish() {
-    echo -e "All finished!\n"
+    clear && echo -e "\n All finished!\n"
     }
 
 setup
