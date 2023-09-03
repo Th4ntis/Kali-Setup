@@ -78,6 +78,12 @@ power_setup() {
     wget -q https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     }
 
+xfce() {
+    git clone X
+    mv ~/Kali-Setup/xfce-shortcuts.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+    
+    }
+
 finish() {
     sudo apt autoremove -y
     clear && echo -e "\n All finished!\n"
