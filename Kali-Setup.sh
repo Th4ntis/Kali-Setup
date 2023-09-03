@@ -18,6 +18,7 @@ setup() {
     joplin_install
     zsh_setup
     power_setup
+    xfce
     finish
     }
 
@@ -79,9 +80,8 @@ power_setup() {
     }
 
 xfce() {
-    git clone X
+    git clone https://github.com/Th4ntis/Kali-Setup.git
     mv ~/Kali-Setup/xfce-shortcuts.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
-    
     }
 
 finish() {
