@@ -8,6 +8,7 @@
 setup() {
     sudo apt update && sudo apt upgrade -y
     sudo apt install -y terminator neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms flameshot
+    cp ~/.zshrc .zshrc.bak
     chrome_install
     rockyou_unzip
     seclists_install
