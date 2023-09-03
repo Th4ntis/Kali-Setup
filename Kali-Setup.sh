@@ -18,7 +18,7 @@ setup() {
     joplin_install
     zsh_setup
     power_setup
-    xfce
+    xfce_shortcuts
     finish
     }
 
@@ -79,9 +79,9 @@ power_setup() {
     wget -q https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     }
 
-xfce() {
-    git clone https://github.com/Th4ntis/Kali-Setup.git
-    mv ~/Kali-Setup/xfce-shortcuts.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+xfce_shortcuts() {
+    wget -q https://github.com/Th4ntis/Kali-Setup/blob/main/xfce-shortcuts.xml -O ~/xfce-shortcuts.xml
+    mv ~/xfce-shortcuts.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
     }
 
 finish() {
