@@ -48,6 +48,7 @@ nessus_install() {
 
 fonts_setup() {
     sudo mkdir /usr/share/fonts/truetype/MesloLGS
+    cd ~/$USER
     wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
     wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
     wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
