@@ -87,8 +87,8 @@ xfce_shortcuts() {
     }
 
 taskbar_setup() {
-    tar xvf xfce4-docklike-plugin-0.4.0.tar.gz && cd xfce4-docklike-plugin-0.4.0
-    ./configure
+    git clone https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin.git && cd xfce4-docklike-plugin
+    ./autogen.sh
     make
     sudo make install
     }
