@@ -19,6 +19,7 @@ setup() {
     zsh_setup
     power_setup
     xfce_shortcuts
+    taskbar_setup
     finish
     }
 
@@ -83,6 +84,13 @@ power_setup() {
 xfce_shortcuts() {
     wget -q https://github.com/Th4ntis/Kali-Setup/blob/main/xfce-shortcuts.xml -O ~/xfce-shortcuts.xml
     mv ~/xfce-shortcuts.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+    }
+
+taskbar_setup() {
+    tar xvf xfce4-docklike-plugin-0.4.0.tar.gz && cd xfce4-docklike-plugin-0.4.0
+    ./configure
+    make
+    sudo make install
     }
 
 finish() {
