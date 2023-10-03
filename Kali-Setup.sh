@@ -7,7 +7,7 @@
 
 setup() {
     sudo apt update && sudo apt upgrade -y
-    sudo apt install -y terminator neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms flameshot bridge-utils
+    sudo apt install -y terminator neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev 
     cp ~/.zshrc .zshrc.bak
     chrome_install
     rockyou_unzip
@@ -91,6 +91,7 @@ taskbar_setup() {
     ./autogen.sh
     make
     sudo make install
+    sudo rm -r docklike-plugin
     }
 
 finish() {
