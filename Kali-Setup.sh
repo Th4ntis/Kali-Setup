@@ -7,7 +7,7 @@
 
 setup() {
     sudo apt update && sudo apt upgrade -y
-    sudo apt install -y terminator neo4j bloodhound amass libu2f-udev realtek-rtl88xxau-dkms dkms flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev 
+    sudo apt install -y terminator neo4j bloodhound amass libu2f-udev responder realtek-rtl88xxau-dkms dkms flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev 
     cp ~/.zshrc .zshrc.bak
     chrome_install
     rockyou_unzip
@@ -15,6 +15,7 @@ setup() {
     nessus_install
     fonts_setup
     tmux_plugins_install
+    gnmap_parser_install
     joplin_install
     zsh_setup
     power_setup
@@ -64,6 +65,10 @@ tmux_plugins_install() {
     git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
     }
 
+gnmap_parser_install() {
+    git clone https://github.com/jasonjfrank/gnmap-parser.git
+    }
+
 joplin_install() {
     wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
     }
@@ -73,8 +78,13 @@ zsh_setup() {
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
     cp ~/dotfiles/zsh/.zshrc ~/
+    sudo cp ~/dotfiles/zsh/.zshrc /root/
     cp ~/dotfiles/tmux/.tmux.conf ~/
+    sudo cp ~/dotfiles/tmux/.tmux.conf /root/
+    mkdir ~/.config/terminator
+    sudo mkdir /root/.config/terminator
     cp ~/dotfiles/terminator/config ~/.config/terminator/
+    sudo cp ~/dotfiles/terminator/config /root/.config/terminator/
     }
 
 power_setup() {
