@@ -11,7 +11,7 @@ setup() {
     cp ~/.zshrc .zshrc.bak
     chrome_install
     rockyou_unzip
-    seclists_install
+    install_go
     nessus_install
     fonts_setup
     tmux_plugins_install
@@ -33,11 +33,100 @@ rockyou_unzip() {
     cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
     }
 
-seclists_install() {
-    sudo wget -q https://github.com/danielmiessler/SecLists/archive/master.zip -O /tmp/SecList.zip
-    sudo unzip -o /tmp/SecList.zip -d /usr/share/seclists
-    sudo rm -f /tmp/SecList.zip
-    }
+install_go() {
+	echo -e "\n $greenplus Adding GO GOPATH to .zshrc"
+	sleep 2
+	echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
+	echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
+	source ~/.zshrc
+	mkdir -p ~/.go/{bin,pkg,src}
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+install_hashcat-utils() {
+	echo -e "\n $greenplus Installing Hashcat Utils"
+	sleep 2
+ 	cd /opt/Pentest && sudo git clone https://github.com/hashcat/hashcat-utils.git && cd hashcat-utils/src && sudo make && sudo cp *bin ../bin
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+install_hcxdumptools() {
+	echo -e "\n $greenplus Installing HCXDumpTool"
+	sleep 2
+	cd /opt/Pentest && sudo git clone https://github.com/ZerBea/hcxdumptool && cd hcxdumptool && sudo make && sudo make install
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+install_hcxtools() {
+	echo -e "\n $greenplus Installing HCXTools"
+	sleep 2
+	sudo apt install -y libcurl4-openssl-dev libssl-dev zlib1g-dev
+ 	cd /opt/Pentest && sudo git clone https://github.com/ZerBea/hcxtools.git && cd hcxtools && sudo make && sudo make install
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+install_bettercap() {
+	echo -e "\n $greenplus Installing Bettercap and Bettercap WebUI"
+	sleep 2
+	sudo apt install -y libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev
+	go install github.com/bettercap/bettercap@latest
+	sudo ~/.go/bin/bettercap -eval "caplets.update; ui.update; q"
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ install_rtl8812au-drivers() {
+	echo -e "\n $greenplus Installing RTL8812AU Drivers"
+	sleep 2
+	cd /opt/Pentest && sudo git clone -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git && cd rtl8812au && sudo make && sudo make install
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ install_peass() {
+	echo -e "\n $greenplus Installing PEASS"
+	sleep 2
+	cd /opt/Pentest && sudo git clone https://github.com/carlospolop/PEASS-ng.git
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ 
+install_pcredz() {
+	echo -e "\n $greenplus Installing PCredz"
+	sleep 2
+	cd /opt/Pentest && sudo git clone https://github.com/lgandx/PCredz.git
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ install_onedriveuseremum() {
+	echo -e "\n $greenplus Installing OneDriveUser Enum"
+	sleep 2
+	cd /opt/Pentest && sudo git clone https://github.com/nyxgeek/onedrive_user_enum.git
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ install_netexec() {
+	echo -e "\n $greenplus Installing NetExec"
+	sleep 2
+	python3 -m pipx install git+https://github.com/Pennyw0rth/NetExec
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ install_donpapi() {
+	echo -e "\n $greenplus Installing DonPAPI"
+	sleep 2
+	python3 -m pipx install donpapi
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
 
 nessus_install() {
     nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-debian10_amd64.deb" | grep -m1 -i ".deb")
