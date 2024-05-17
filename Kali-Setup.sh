@@ -38,16 +38,20 @@ setup() {
 
 chrome_install() {
     echo -e "\n $greenplus Installing Chrome"
+    sleep 2
     wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
     sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
     sudo rm -f /tmp/google-chrome-stable_current_amd64.deb
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 rockyou_unzip() {
     echo -e "\n $greenplus Unzipping rockyou.txt"
+    sleep 2
     cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 install_go() {
@@ -155,16 +159,19 @@ pcredz_install() {
 
 nessus_install() {
     echo -e "\n $greenplus Installing Nessus"
+    sleep 2
     nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-debian10_amd64.deb" | grep -m1 -i ".deb")
     nessus_amd64="https://www.tenable.com/downloads/api/v2/pages/nessus/files/$nessus_amd64_file"
     sudo wget -q $nessus_amd64 -O /tmp/nessus_amd64.deb
     sudo dpkg -i /tmp/nessus_amd64.deb
     sudo rm -f /tmp/nessus_amd64.deb
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 fonts_setup() {
     echo -e "\n $greenplus Setting up fonts for terminator"
+    sleep 2
     sudo mkdir /usr/share/fonts/truetype/MesloLGS
     cd ~/$USER
     wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
@@ -173,25 +180,31 @@ fonts_setup() {
     wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
     sudo mv *.ttf /usr/share/fonts/truetype/MesloLGS/
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 tmux_plugins_install() {
     echo -e "\n $greenplus Installing TMUX Plugins"
+    sleep 2
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     git clone https://github.com/tmux-plugins/tmux-battery ~/.tmux/plugins/tmux-battery
     git clone https://github.com/tmux-plugins/tmux-cpu ~/.tmux/plugins/tmux-cpu
     git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 gnmap_parser_install() {
     echo -e "\n $greenplus Installing gnmap parser"
+    sleep 2
     git clone https://github.com/jasonjfrank/gnmap-parser.git
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 zsh_setup() {
     echo -e "\n $greenplus Setting up ZSH"
+    sleep 2
     git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
@@ -204,28 +217,35 @@ zsh_setup() {
     cp ~/dotfiles/terminator/config ~/.config/terminator/
     sudo cp ~/dotfiles/terminator/config /root/.config/terminator/
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 power_setup() {
     echo -e "\n $greenplus Changing Power Settings"
+    sleep 2
     wget -q https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 xfce_shortcuts() {
     echo -e "\n $greenplus Setting up XFCE Shortcuts"
+    sleep 2
     wget -q https://github.com/Th4ntis/Kali-Setup/blob/main/xfce-shortcuts.xml -O ~/xfce-shortcuts.xml
     mv ~/xfce-shortcuts.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
     echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 finish() {
     echo -e "\n $greenplus Finishing Up"
+    sleep 2
     sudo apt autoremove -y
     sudo rm -r ~/dontfiles
     pipx ensurepath
     sudo pipx ensurepath
     clear && echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 setup
