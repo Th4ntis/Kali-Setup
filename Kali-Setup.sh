@@ -7,16 +7,26 @@
 
 setup() {
     sudo apt update && sudo apt upgrade -y
-    sudo apt install -y terminator neo4j bloodhound amass libu2f-udev responder realtek-rtl88xxau-dkms dkms flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev 
+    sudo apt install -y terminator neo4j bloodhound amass pipx libu2f-udev responder realtek-rtl88xxau-dkms dkms flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools
     cp ~/.zshrc .zshrc.bak
     chrome_install
     rockyou_unzip
     install_go
+    bettercap_install
+    hashcat-utils_install
+    hcxdumptools_install
+    hcxtools_install
+    rtl8812au-drivers_install
+    shodancli_install
+    peass_install
+    pcredz_install
+    onedriveuserenum_install
+    netexec_install
+    donpapi_install
     nessus_install
     fonts_setup
     tmux_plugins_install
     gnmap_parser_install
-    joplin_install
     zsh_setup
     power_setup
     xfce_shortcuts
@@ -44,32 +54,7 @@ install_go() {
 	sleep 2
 	}
 
-install_hashcat-utils() {
-	echo -e "\n $greenplus Installing Hashcat Utils"
-	sleep 2
- 	cd /opt/Pentest && sudo git clone https://github.com/hashcat/hashcat-utils.git && cd hashcat-utils/src && sudo make && sudo cp *bin ../bin
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
-
-install_hcxdumptools() {
-	echo -e "\n $greenplus Installing HCXDumpTool"
-	sleep 2
-	cd /opt/Pentest && sudo git clone https://github.com/ZerBea/hcxdumptool && cd hcxdumptool && sudo make && sudo make install
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
-
-install_hcxtools() {
-	echo -e "\n $greenplus Installing HCXTools"
-	sleep 2
-	sudo apt install -y libcurl4-openssl-dev libssl-dev zlib1g-dev
- 	cd /opt/Pentest && sudo git clone https://github.com/ZerBea/hcxtools.git && cd hcxtools && sudo make && sudo make install
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
-
-install_bettercap() {
+bettercap_install() {
 	echo -e "\n $greenplus Installing Bettercap and Bettercap WebUI"
 	sleep 2
 	sudo apt install -y libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev
@@ -79,27 +64,60 @@ install_bettercap() {
 	sleep 2
 	}
 
- install_rtl8812au-drivers() {
-	echo -e "\n $greenplus Installing RTL8812AU Drivers"
+hashcat-utils_install() {
+	echo -e "\n $greenplus Installing Hashcat Utils"
 	sleep 2
-	cd /opt/Pentest && sudo git clone -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git && cd rtl8812au && sudo make && sudo make install
+ 	cd ~/Tools && git clone https://github.com/hashcat/hashcat-utils.git && cd hashcat-utils/src && sudo make && sudo cp *bin ../bin
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
 
- install_peass() {
+hcxdumptools_install() {
+	echo -e "\n $greenplus Installing HCXDumpTool"
+	sleep 2
+	cd ~/Tools && git clone https://github.com/ZerBea/hcxdumptool && cd hcxdumptool && sudo make && sudo make install
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+hcxtools_install() {
+	echo -e "\n $greenplus Installing HCXTools"
+	sleep 2
+	sudo apt install -y libcurl4-openssl-dev libssl-dev zlib1g-dev
+ 	cd ~/Tools && git clone https://github.com/ZerBea/hcxtools.git && cd hcxtools && sudo make && sudo make install
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+rtl8812au-drivers_install() {
+	echo -e "\n $greenplus Installing RTL8812AU Drivers"
+	sleep 2
+	cd ~/Tools && git clone -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git && cd rtl8812au && sudo make && sudo make install
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ shodancli_install() {
+	echo -e "\n $greenplus Installing ShodanCLI"
+	sleep 2
+	python3 -m pipx install shodan
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ peass_install() {
 	echo -e "\n $greenplus Installing PEASS"
 	sleep 2
-	cd /opt/Pentest && sudo git clone https://github.com/carlospolop/PEASS-ng.git
+	cd ~/Tools && git clone https://github.com/carlospolop/PEASS-ng.git
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
 
  
-install_pcredz() {
+pcredz_install() {
 	echo -e "\n $greenplus Installing PCredz"
 	sleep 2
-	cd /opt/Pentest && sudo git clone https://github.com/lgandx/PCredz.git
+	cd ~/Tools && git clone https://github.com/lgandx/PCredz.git
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
@@ -107,12 +125,12 @@ install_pcredz() {
  install_onedriveuseremum() {
 	echo -e "\n $greenplus Installing OneDriveUser Enum"
 	sleep 2
-	cd /opt/Pentest && sudo git clone https://github.com/nyxgeek/onedrive_user_enum.git
+	cd ~/Tools && git clone https://github.com/nyxgeek/onedrive_user_enum.git
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
 
- install_netexec() {
+ netexec_install() {
 	echo -e "\n $greenplus Installing NetExec"
 	sleep 2
 	python3 -m pipx install git+https://github.com/Pennyw0rth/NetExec
@@ -120,7 +138,7 @@ install_pcredz() {
 	sleep 2
 	}
 
- install_donpapi() {
+ donpapi_install() {
 	echo -e "\n $greenplus Installing DonPAPI"
 	sleep 2
 	python3 -m pipx install donpapi
@@ -183,6 +201,8 @@ xfce_shortcuts() {
 finish() {
     sudo apt autoremove -y
     sudo rm -r ~/dontfiles
+    pipx ensurepath
+    sudo pipx ensurepath
     clear && echo -e "\n All finished!\n"
     }
 
