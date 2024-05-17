@@ -10,8 +10,11 @@ greenplus='\e[1;33m[++]\e[0m'
 
 setup() {
     sudo apt update && sudo apt upgrade -y
-    sudo apt install -y terminator neo4j bloodhound amass pipx libu2f-udev responder realtek-rtl88xxau-dkms dkms flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools
+    mkdir ~/Tools
+    sudo apt install -y terminator neo4j bloodhound amass pipx libu2f-udev responder realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools
     cp ~/.zshrc .zshrc.bak
+    fonts_setup
+    zsh_setup
     chrome_install
     rockyou_unzip
     install_go
@@ -26,14 +29,44 @@ setup() {
     onedriveuserenum_install
     netexec_install
     donpapi_install
-    nessus_install
-    fonts_setup
-    tmux_plugins_install
     gnmap_parser_install
-    zsh_setup
+    nessus_install
+    tmux_plugins_install
     power_setup
     xfce_shortcuts
     finish
+    }
+
+fonts_setup() {
+    echo -e "\n $greenplus Setting up fonts for terminator"
+    sleep 2
+    sudo mkdir /usr/share/fonts/truetype/MesloLGS
+    cd ~/
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+    sudo mv *.ttf /usr/share/fonts/truetype/MesloLGS/
+    echo -e "\n $greenplus Complete \n"
+    sleep 2
+    }
+
+zsh_setup() {
+    echo -e "\n $greenplus Setting up ZSH"
+    sleep 2
+    git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
+    cp ~/dotfiles/zsh/.zshrc ~/
+    sudo cp ~/dotfiles/zsh/.zshrc /root/
+    cp ~/dotfiles/tmux/.tmux.conf ~/
+    sudo cp ~/dotfiles/tmux/.tmux.conf /root/
+    mkdir ~/.config/terminator
+    sudo mkdir /root/.config/terminator
+    cp ~/dotfiles/terminator/config ~/.config/terminator/
+    sudo cp ~/dotfiles/terminator/config /root/.config/terminator/
+    echo -e "\n $greenplus Complete \n"
+    sleep 2
     }
 
 chrome_install() {
@@ -68,7 +101,6 @@ install_go() {
 bettercap_install() {
 	echo -e "\n $greenplus Installing Bettercap and Bettercap WebUI"
 	sleep 2
-	sudo apt install -y libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev
 	go install github.com/bettercap/bettercap@latest
 	sudo ~/.go/bin/bettercap -eval "caplets.update; ui.update; q"
 	echo -e "\n $greenplus Complete \n"
@@ -94,7 +126,6 @@ hcxdumptools_install() {
 hcxtools_install() {
 	echo -e "\n $greenplus Installing HCXTools"
 	sleep 2
-	sudo apt install -y libcurl4-openssl-dev libssl-dev zlib1g-dev
  	cd ~/Tools && git clone https://github.com/ZerBea/hcxtools.git && cd hcxtools && sudo make && sudo make install
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
@@ -111,7 +142,8 @@ rtl8812au-drivers_install() {
  shodancli_install() {
 	echo -e "\n $greenplus Installing ShodanCLI"
 	sleep 2
-	python3 -m pipx install shodan
+	pipx install shodan
+	sudo pipx install shodan
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
@@ -144,7 +176,8 @@ pcredz_install() {
  netexec_install() {
 	echo -e "\n $greenplus Installing NetExec"
 	sleep 2
-	python3 -m pipx install git+https://github.com/Pennyw0rth/NetExec
+	pipx install git+https://github.com/Pennyw0rth/NetExec
+ 	sudo pipx install git+https://github.com/Pennyw0rth/NetExec
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
@@ -152,10 +185,19 @@ pcredz_install() {
  donpapi_install() {
 	echo -e "\n $greenplus Installing DonPAPI"
 	sleep 2
-	python3 -m pipx install donpapi
+	pipx install donpapi
+ 	sudo pipx install donpapi
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
+
+ gnmap_parser_install() {
+    echo -e "\n $greenplus Installing gnmap parser"
+    sleep 2
+    cd ~/Tools && git clone https://github.com/jasonjfrank/gnmap-parser.git
+    echo -e "\n $greenplus Complete \n"
+    sleep 2
+    }
 
 nessus_install() {
     echo -e "\n $greenplus Installing Nessus"
@@ -169,20 +211,6 @@ nessus_install() {
     sleep 2
     }
 
-fonts_setup() {
-    echo -e "\n $greenplus Setting up fonts for terminator"
-    sleep 2
-    sudo mkdir /usr/share/fonts/truetype/MesloLGS
-    cd ~/$USER
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-    sudo mv *.ttf /usr/share/fonts/truetype/MesloLGS/
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
-
 tmux_plugins_install() {
     echo -e "\n $greenplus Installing TMUX Plugins"
     sleep 2
@@ -190,32 +218,6 @@ tmux_plugins_install() {
     git clone https://github.com/tmux-plugins/tmux-battery ~/.tmux/plugins/tmux-battery
     git clone https://github.com/tmux-plugins/tmux-cpu ~/.tmux/plugins/tmux-cpu
     git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
-
-gnmap_parser_install() {
-    echo -e "\n $greenplus Installing gnmap parser"
-    sleep 2
-    git clone https://github.com/jasonjfrank/gnmap-parser.git
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
-
-zsh_setup() {
-    echo -e "\n $greenplus Setting up ZSH"
-    sleep 2
-    git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
-    cp ~/dotfiles/zsh/.zshrc ~/
-    sudo cp ~/dotfiles/zsh/.zshrc /root/
-    cp ~/dotfiles/tmux/.tmux.conf ~/
-    sudo cp ~/dotfiles/tmux/.tmux.conf /root/
-    mkdir ~/.config/terminator
-    sudo mkdir /root/.config/terminator
-    cp ~/dotfiles/terminator/config ~/.config/terminator/
-    sudo cp ~/dotfiles/terminator/config /root/.config/terminator/
     echo -e "\n $greenplus Complete \n"
     sleep 2
     }
@@ -241,7 +243,7 @@ finish() {
     echo -e "\n $greenplus Finishing Up"
     sleep 2
     sudo apt autoremove -y
-    sudo rm -r ~/dontfiles
+    sudo rm -r ~/dotfiles
     pipx ensurepath
     sudo pipx ensurepath
     clear && echo -e "\n $greenplus Complete \n"
