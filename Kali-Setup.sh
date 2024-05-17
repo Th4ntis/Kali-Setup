@@ -68,10 +68,6 @@ gnmap_parser_install() {
     git clone https://github.com/jasonjfrank/gnmap-parser.git
     }
 
-joplin_install() {
-    wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
-    }
-
 zsh_setup() {
     git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -97,6 +93,7 @@ xfce_shortcuts() {
 
 finish() {
     sudo apt autoremove -y
+    sudo rm -r ~/dontfiles
     clear && echo -e "\n All finished!\n"
     }
 
