@@ -19,6 +19,8 @@ setup() {
     rockyou_unzip
     install_go
     bettercap_install
+    responder_install
+    impacket_install
     hashcat-utils_install
     hcxdumptools_install
     hcxtools_install
@@ -32,8 +34,9 @@ setup() {
     gnmap_parser_install
     nessus_install
     tmux_plugins_install
+    virtualbox_install
     power_setup
-    xfce_shortcuts
+    rdp_setup
     finish
     }
 
@@ -103,6 +106,22 @@ bettercap_install() {
 	sleep 2
 	go install github.com/bettercap/bettercap@latest
 	sudo ~/.go/bin/bettercap -eval "caplets.update; ui.update; q"
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+responder_install() {
+	echo -e "\n $greenplus Getting Responder as backup to installed Responder"
+	sleep 2
+ 	cd ~/Tools && git clone https://github.com/lgandx/Responder.git
+	echo -e "\n $greenplus Complete \n"
+	sleep 2
+	}
+
+ impacket_install() {
+	echo -e "\n $greenplus Getting Responder as backup to installed Responder"
+	sleep 2
+ 	cd ~/Tools && git clone https://github.com/fortra/impacket.git
 	echo -e "\n $greenplus Complete \n"
 	sleep 2
 	}
@@ -230,11 +249,20 @@ power_setup() {
     sleep 2
     }
 
-xfce_shortcuts() {
-    echo -e "\n $greenplus Setting up XFCE Shortcuts"
+virtualbox_install() {
+    echo -e "\n $greenplus Installing Virtualbox"
     sleep 2
-    wget -q https://github.com/Th4ntis/Kali-Setup/blob/main/xfce-shortcuts.xml -O ~/xfce-shortcuts.xml
-    mv ~/xfce-shortcuts.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+    sudo apt update && sudo apt full-upgrade -y && sudo apt install -y virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11
+    sudo adduser $USER vboxusers
+    echo -e "\n $greenplus Complete \n"
+    sleep 2
+    }
+
+rdp_setup() {
+    echo -e "\n $greenplus Setting up RDP over port 3389"
+    sleep 2
+    sudo apt update && sudo apt full-upgrade -y && sudo apt install -y xorg xrdp
+    sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
     echo -e "\n $greenplus Complete \n"
     sleep 2
     }
@@ -244,9 +272,10 @@ finish() {
     sleep 2
     sudo apt autoremove -y
     sudo rm -r ~/dotfiles
-    pipx ensurepath
-    sudo pipx ensurepath
+    echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
+    echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
     clear && echo -e "\n $greenplus Complete \n"
+    sudo reboot now
     sleep 2
     }
 
