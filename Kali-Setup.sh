@@ -29,7 +29,7 @@ setup() {
     peass_install
     pcredz_install
     onedriveuserenum_install
-    netexec_install
+#    netexec_install
     donpapi_install
     gnmap_parser_install
     nessus_install
@@ -192,14 +192,14 @@ pcredz_install() {
 	sleep 2
 	}
 
- netexec_install() {
-	echo -e "\n $greenplus Installing NetExec"
-	sleep 2
-	pipx install git+https://github.com/Pennyw0rth/NetExec
- 	sudo pipx install git+https://github.com/Pennyw0rth/NetExec
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+# netexec_install() {
+#	echo -e "\n $greenplus Installing NetExec"
+#	sleep 2
+#	pipx install git+https://github.com/Pennyw0rth/NetExec
+# 	sudo pipx install git+https://github.com/Pennyw0rth/NetExec
+#	echo -e "\n $greenplus Complete \n"
+#	sleep 2
+#	}
 
  donpapi_install() {
 	echo -e "\n $greenplus Installing DonPAPI"
