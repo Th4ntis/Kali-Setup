@@ -119,7 +119,7 @@ sudo rm -f /tmp/nessus_amd64.deb
 echo -e "$green Complete"
 
 echo -e "\n $green Changing Power Settings"
-wget -q https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 echo -e "$green Complete"
 
 echo -e "\n $green Installing Virtualbox"
