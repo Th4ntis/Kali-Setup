@@ -6,277 +6,140 @@
 # Standard Disclaimer: Author assumes no liability for any damage
 
 # status indicators
-greenplus='\e[1;33m[++]\e[0m'
+green='\e[1;33m[+]\e[0m'
 
-setup() {
-    sudo apt update && sudo apt upgrade -y
-    mkdir ~/Tools
-    sudo apt install -y terminator neo4j bloodhound amass pipx libu2f-udev responder realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools
-    cp ~/.zshrc .zshrc.bak
-    fonts_setup
-    zsh_setup
-    chrome_install
-    rockyou_unzip
-    install_go
-    bettercap_install
-    responder_install
-    impacket_install
-    hashcat-utils_install
-    hcxdumptools_install
-    hcxtools_install
-    rtl8812au-drivers_install
-    shodancli_install
-    peass_install
-    pcredz_install
-    onedriveuserenum_install
-#    netexec_install
-    donpapi_install
-    gnmap_parser_install
-    nessus_install
-    tmux_plugins_install
-    virtualbox_install
-    power_setup
-    rdp_setup
-    finish
-    }
+echo -e "\n$green Running apt update..."
+sudo apt-get update
+echo -e "$green Complete"
 
-fonts_setup() {
-    echo -e "\n $greenplus Setting up fonts for terminator"
-    sleep 2
-    sudo mkdir /usr/share/fonts/truetype/MesloLGS
-    cd ~/
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-    wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-    sudo mv *.ttf /usr/share/fonts/truetype/MesloLGS/
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n$green Running apt upgrade..."
+sudo apt-get -y -qq upgrade
+echo -e "$green Complete"
 
-zsh_setup() {
-    echo -e "\n $greenplus Setting up ZSH"
-    sleep 2
-    git clone https://github.com/Th4ntis/dotfiles.git ~/dotfiles
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
-    cp ~/dotfiles/zsh/.zshrc ~/
-    sudo cp ~/dotfiles/zsh/.zshrc /root/
-    cp ~/dotfiles/tmux/.tmux.conf ~/
-    sudo cp ~/dotfiles/tmux/.tmux.conf /root/
-    mkdir ~/.config/terminator
-    sudo mkdir /root/.config/terminator
-    cp ~/dotfiles/terminator/config ~/.config/terminator/
-    sudo cp ~/dotfiles/terminator/config /root/.config/terminator/
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n$green Installing tools via apt-get..."
+sudo apt install -y terminator neo4j bloodhound amass pipx libu2f-udev responder realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools
+echo -e "$green Complete"
 
-chrome_install() {
-    echo -e "\n $greenplus Installing Chrome"
-    sleep 2
-    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
-    sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
-    sudo rm -f /tmp/google-chrome-stable_current_amd64.deb
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n$green Making tools folder under ~/Tools"
+mkdir ~/Tools
 
-rockyou_unzip() {
-    echo -e "\n $greenplus Unzipping rockyou.txt"
-    sleep 2
-    cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n$green Copying .zshrc to .zshrc.bak"
+cp ~/.zshrc .zshrc.bak
 
-install_go() {
-	echo -e "\n $greenplus Adding GO GOPATH to .zshrc"
-	sleep 2
-	echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
-	echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
-	source ~/.zshrc
-	mkdir -p ~/.go/{bin,pkg,src}
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n$green Installing Google Chrome..."
+wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Chrome.deb
+sudo dpkg -i ~/Chrome.deb;sudo apt install -y -f 2> /dev/null
+echo -e "$green Complete"
 
-bettercap_install() {
-	echo -e "\n $greenplus Installing Bettercap and Bettercap WebUI"
-	sleep 2
-	go install github.com/bettercap/bettercap@latest
-	sudo ~/.go/bin/bettercap -eval "caplets.update; ui.update; q"
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n$green Unzipping rockyou.txt"
+cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
+echo -e "$green Complete"
 
-responder_install() {
-	echo -e "\n $greenplus Getting Responder as backup to installed Responder"
-	sleep 2
- 	cd ~/Tools && git clone https://github.com/lgandx/Responder.git
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green adding GOPATH to .zshrc"
+echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
+echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
+source ~/.zshrc
+mkdir -p ~/.go/{bin,pkg,src}
+echo -e "$green Complete"
 
- impacket_install() {
-	echo -e "\n $greenplus Getting Responder as backup to installed Responder"
-	sleep 2
- 	cd ~/Tools && git clone https://github.com/fortra/impacket.git
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Installing Bettercap and Bettercap WebUI..."
+go install github.com/bettercap/bettercap@latest
+sudo ~/.go/bin/bettercap -eval "caplets.update; ui.update; q"
+echo -e "$green Complete"
 
-hashcat-utils_install() {
-	echo -e "\n $greenplus Installing Hashcat Utils"
-	sleep 2
- 	cd ~/Tools && git clone https://github.com/hashcat/hashcat-utils.git && cd hashcat-utils/src && sudo make && sudo cp *bin ../bin
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Getting Responder as backup to installed Responder"
+git clone --quiet https://github.com/lgandx/Responder.git ~/Tools/ > /dev/null
+echo -e "$green Complete"
 
-hcxdumptools_install() {
-	echo -e "\n $greenplus Installing HCXDumpTool"
-	sleep 2
-	cd ~/Tools && git clone https://github.com/ZerBea/hcxdumptool && cd hcxdumptool && sudo make && sudo make install
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Getting Impacket as backup to installed Ipacket"
+git clone --quiet https://github.com/fortra/impacket.git ~/Tools/ > /dev/null
+echo -e "$green Complete"
 
-hcxtools_install() {
-	echo -e "\n $greenplus Installing HCXTools"
-	sleep 2
- 	cd ~/Tools && git clone https://github.com/ZerBea/hcxtools.git && cd hcxtools && sudo make && sudo make install
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Installing Hashcat Utils"
+git clone --quiet https://github.com/hashcat/hashcat-utils.git ~/Tools/ > /dev/null
+cd ~/Tools/hashcat-utils/src
+sudo make && sudo cp *bin ../bin
+echo -e "$green Complete"
 
-rtl8812au-drivers_install() {
-	echo -e "\n $greenplus Installing RTL8812AU Drivers"
-	sleep 2
-	cd ~/Tools && git clone -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git && cd rtl8812au && sudo make && sudo make install
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Installing HCXDumpTool"
+git clone --quiet https://github.com/ZerBea/hcxdumptool ~/Tools/ > /dev/null
+cd hcxdumptool
+sudo make && sudo make install
+echo -e "$green Complete"
 
- shodancli_install() {
-	echo -e "\n $greenplus Installing ShodanCLI"
-	sleep 2
-	pipx install shodan
-	sudo pipx install shodan
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Installing HCXTools"
+git clone --quiet https://github.com/ZerBea/hcxtools.git ~/Tools/ > /dev/null
+cd ~/Tools/hcxtools&& sudo make && sudo make install
+echo -e "$green Complete"
 
- peass_install() {
-	echo -e "\n $greenplus Installing PEASS"
-	sleep 2
-	cd ~/Tools && git clone https://github.com/carlospolop/PEASS-ng.git
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
 
- 
-pcredz_install() {
-	echo -e "\n $greenplus Installing PCredz"
-	sleep 2
-	cd ~/Tools && git clone https://github.com/lgandx/PCredz.git
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Installing RTL8812AU Drivers"
+git clone --quiet -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git ~/Tools/ > /dev/null
+cd ~/Tools/rtl8812au && sudo make && sudo make install
+echo -e "$green Complete"
 
- install_onedriveuseremum() {
-	echo -e "\n $greenplus Installing OneDriveUser Enum"
-	sleep 2
-	cd ~/Tools && git clone https://github.com/nyxgeek/onedrive_user_enum.git
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Installing ShodanCLI"
+pipx install shodan
+sudo pipx install shodan
+echo -e "$green Complete"
 
-# netexec_install() {
-#	echo -e "\n $greenplus Installing NetExec"
-#	sleep 2
-#	pipx install git+https://github.com/Pennyw0rth/NetExec
-# 	sudo pipx install git+https://github.com/Pennyw0rth/NetExec
-#	echo -e "\n $greenplus Complete \n"
-#	sleep 2
-#	}
+echo -e "\n $green Installing PEASS"
+git clone --quiet https://github.com/carlospolop/PEASS-ng.git ~/Tools/ > /dev/null
+echo -e "$green Complete"
 
- donpapi_install() {
-	echo -e "\n $greenplus Installing DonPAPI"
-	sleep 2
-	pipx install donpapi
- 	sudo pipx install donpapi
-	echo -e "\n $greenplus Complete \n"
-	sleep 2
-	}
+echo -e "\n $green Installing PCredz"
+git clone --quiet https://github.com/lgandx/PCredz.git ~/Tools/ > /dev/null
+echo -e "$green Complete"
 
- gnmap_parser_install() {
-    echo -e "\n $greenplus Installing gnmap parser"
-    sleep 2
-    cd ~/Tools && git clone https://github.com/jasonjfrank/gnmap-parser.git
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n $green Installing OneDriveUser Enum"
+git clone --quiet https://github.com/nyxgeek/onedrive_user_enum.git ~/Tools/ > /dev/null
+echo -e "$green Complete"
 
-nessus_install() {
-    echo -e "\n $greenplus Installing Nessus"
-    sleep 2
-    nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-debian10_amd64.deb" | grep -m1 -i ".deb")
-    nessus_amd64="https://www.tenable.com/downloads/api/v2/pages/nessus/files/$nessus_amd64_file"
-    sudo wget -q $nessus_amd64 -O /tmp/nessus_amd64.deb
-    sudo dpkg -i /tmp/nessus_amd64.deb
-    sudo rm -f /tmp/nessus_amd64.deb
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+#echo -e "\n $green Installing NetExec"
+#pipx install git+https://github.com/Pennyw0rth/NetExec
+# sudo pipx install git+https://github.com/Pennyw0rth/NetExec
+#echo -e "$green Complete"
 
-tmux_plugins_install() {
-    echo -e "\n $greenplus Installing TMUX Plugins"
-    sleep 2
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    git clone https://github.com/tmux-plugins/tmux-battery ~/.tmux/plugins/tmux-battery
-    git clone https://github.com/tmux-plugins/tmux-cpu ~/.tmux/plugins/tmux-cpu
-    git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n $green Installing DonPAPI"
+pipx install donpapi
+sudo pipx install donpapi
+echo -e "$green Complete"
 
-power_setup() {
-    echo -e "\n $greenplus Changing Power Settings"
-    sleep 2
-    wget -q https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n $green Installing gnmap parser"
+git clone --quiet https://github.com/jasonjfrank/gnmap-parser.git ~/Tools/ > /dev/null
+echo -e "$green Complete"
 
-virtualbox_install() {
-    echo -e "\n $greenplus Installing Virtualbox"
-    sleep 2
-    sudo apt update && sudo apt full-upgrade -y && sudo apt install -y virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11
-    sudo adduser $USER vboxusers
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n $green Installing Nessus"
+nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-debian10_amd64.deb" | grep -m1 -i ".deb")
+nessus_amd64="https://www.tenable.com/downloads/api/v2/pages/nessus/files/$nessus_amd64_file"
+sudo wget -q $nessus_amd64 -O /tmp/nessus_amd64.deb
+sudo dpkg -i /tmp/nessus_amd64.deb
+sudo rm -f /tmp/nessus_amd64.deb
+echo -e "$green Complete"
 
-rdp_setup() {
-    echo -e "\n $greenplus Setting up RDP over port 3389"
-    sleep 2
-    sudo apt update && sudo apt full-upgrade -y && sudo apt install -y xorg xrdp
-    sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-    echo -e "\n $greenplus Complete \n"
-    sleep 2
-    }
+echo -e "\n $green Installing TMUX Plugins"
+git clone --quiet https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null
+git clone --quiet https://github.com/tmux-plugins/tmux-battery ~/.tmux/plugins/tmux-battery > /dev/null
+git clone --quiet https://github.com/tmux-plugins/tmux-cpu ~/.tmux/plugins/tmux-cpu > /dev/null
+git clone --quiet https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank > /dev/null
+echo -e "$green Complete"
 
-finish() {
-    echo -e "\n $greenplus Finishing Up"
-    sleep 2
-    sudo apt autoremove -y
-    sudo rm -r ~/dotfiles
-    echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
-    echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
-    clear && echo -e "\n $greenplus Complete \n"
-    sudo reboot now
-    sleep 2
-    }
+echo -e "\n $green Changing Power Settings"
+wget -q https://raw.githubusercontent.com/Dewalt-arch/pimpmyi3-config/main/xfce4/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+echo -e "$green Complete"
 
-setup
+echo -e "\n $green Installing Virtualbox"
+sudo apt update && sudo apt full-upgrade -y && sudo apt install -y virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11
+sudo adduser $USER vboxusers
+echo -e "$green Complete"
+
+echo -e "\n $green Setting up RDP over port 3389"
+sudo apt update && sudo apt full-upgrade -y && sudo apt install -y xorg xrdp
+sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
+echo -e "$green Complete"
+
+echo -e "\n $green Finishing Up"
+sudo apt autoremove -y
+echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
+echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
+echo -e "$green Complete"
