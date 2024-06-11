@@ -17,7 +17,7 @@ sudo apt-get -y -qq upgrade
 echo -e "$green Complete"
 
 echo -e "\n$green Installing tools via apt-get..."
-sudo apt install -y -qq terminator neo4j bloodhound amass pipx libu2f-udev xclip responder realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11 xorg xrdp
+sudo apt install -y -qq terminator neo4j bloodhound amass pipx libu2f-udev xclip responder realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11 xorg xrdp qdbus
 echo -e "$green Complete"
 
 echo -e "\n$green Making tools folder under ~/Tools"
@@ -41,56 +41,53 @@ cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
 #mkdir -p ~/.go/{bin,pkg,src}
 #echo -e "$green Complete"
 
-echo -e "\n $green Installing Bettercap and Bettercap WebUI..."
+echo -e "\n$green Installing Bettercap and Bettercap WebUI..."
 go install github.com/bettercap/bettercap@latest
 sudo ~/.go/bin/bettercap -eval "caplets.update; ui.update; q"
 echo -e "$green Complete"
 
-echo -e "\n $green Getting Responder as backup to installed Responder"
+echo -e "\n$green Getting Responder as backup to installed Responder"
 git clone --quiet https://github.com/lgandx/Responder.git ~/Tools/Responder > /dev/null
 echo -e "$green Complete"
 
-echo -e "\n $green Getting Impacket as backup to installed Ipacket"
+echo -e "\n$green Getting Impacket as backup to installed Ipacket"
 git clone --quiet https://github.com/fortra/impacket.git ~/Tools/Impacket > /dev/null
 echo -e "$green Complete"
 
-echo -e "\n $green Installing Hashcat Utils"
+echo -e "\n$green Installing Hashcat Utils"
 git clone --quiet https://github.com/hashcat/hashcat-utils.git ~/Tools/hashcat-utils > /dev/null
-cd ~/Tools/hashcat-utils/src
-sudo make && sudo cp *bin ../bin
+cd ~/Tools/hashcat-utils/src && sudo make && sudo cp *bin ../bin
 echo -e "$green Complete"
 
-echo -e "\n $green Installing HCXDumpTool"
+echo -e "\n$green Installing HCXDumpTool"
 git clone --quiet https://github.com/ZerBea/hcxdumptool ~/Tools/hcxdumptool > /dev/null
-cd hcxdumptool
-sudo make && sudo make install
+cd ~/Tools/hcxdumptool && sudo make && sudo make install
 echo -e "$green Complete"
 
-echo -e "\n $green Installing HCXTools"
+echo -e "\n$green Installing HCXTools"
 git clone --quiet https://github.com/ZerBea/hcxtools.git ~/Tools/hcxtools > /dev/null
 cd ~/Tools/hcxtools&& sudo make && sudo make install
 echo -e "$green Complete"
-
 
 #echo -e "\n $green Installing RTL8812AU Drivers"
 #git clone --quiet -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git ~/Tools/rtl8812au > /dev/null
 #cd ~/Tools/rtl8812au && sudo make && sudo make install
 #echo -e "$green Complete"
 
-echo -e "\n $green Installing ShodanCLI"
+echo -e "\n$green Installing ShodanCLI"
 pipx install shodan
 sudo pipx install shodan
 echo -e "$green Complete"
 
-echo -e "\n $green Installing PEASS"
+echo -e "\n$green Installing PEASS"
 git clone --quiet https://github.com/carlospolop/PEASS-ng.git ~/Tools/PEASS-ng > /dev/null
 echo -e "$green Complete"
 
-echo -e "\n $green Installing PCredz"
+echo -e "\n$green Getting PCredz"
 git clone --quiet https://github.com/lgandx/PCredz.git ~/Tools/PCredz > /dev/null
 echo -e "$green Complete"
 
-echo -e "\n $green Installing OneDriveUser Enum"
+echo -e "\n$green Getting OneDriveUser Enum"
 git clone --quiet https://github.com/nyxgeek/onedrive_user_enum.git ~/Tools/OneDrive_User_Enum > /dev/null
 echo -e "$green Complete"
 
@@ -100,16 +97,16 @@ echo -e "$green Complete"
 #sudo pipx install git+https://github.com/Pennyw0rth/NetExec
 #echo -e "$green Complete"
 
-echo -e "\n $green Installing DonPAPI"
+echo -e "\n$green Installing DonPAPI"
 pipx install donpapi
 sudo pipx install donpapi
 echo -e "$green Complete"
 
-echo -e "\n $green Installing gnmap parser"
+echo -e "\n$green Getting gnmap parser"
 git clone --quiet https://github.com/jasonjfrank/gnmap-parser.git ~/Tools/gnmap-parser > /dev/null
 echo -e "$green Complete"
 
-echo -e "\n $green Installing Nessus"
+echo -e "\n$green Installing Nessus"
 nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-debian10_amd64.deb" | grep -m1 -i ".deb")
 nessus_amd64="https://www.tenable.com/downloads/api/v2/pages/nessus/files/$nessus_amd64_file"
 sudo wget -q $nessus_amd64 -O /tmp/nessus_amd64.deb
@@ -117,30 +114,29 @@ sudo dpkg -i /tmp/nessus_amd64.deb
 sudo rm -f /tmp/nessus_amd64.deb
 echo -e "$green Complete"
 
-echo -e "\n $green Changing Power Settings"
+echo -e "\n$green Changing Power Settings"
 wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 echo -e "$green Complete"
 
-echo -e "\n $green Adding usser $USER to vboxusers group for Virtualbox"
+echo -e "\n$green Adding usser $USER to vboxusers group for Virtualbox"
 sudo adduser $USER vboxusers
 echo -e "$green Complete"
 
-echo -e "\n $green Setting up RDP over port 3389"
-sudo apt update && sudo apt full-upgrade -y && sudo apt install -y xorg xrdp
+echo -e "\n$green Setting up RDP over port 3389"
 sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
 echo -e "$green Complete"
 
 echo -e "\n$green Getting config/dot files..."
-git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup  > /dev/null
-echo -e "Copying .zshrc..."
-cp ~/Kali-Setup/zsh/.zshrc ~/
-echo -e "Copying .aliases..."
-cp ~/Kali-Setup/zsh/.aliases ~/.aliases
+git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
+echo -e "Copying zshrc..."
+cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
+echo -e "Copying aliases..."
+cp ~/Kali-Setup/zsh/aliases ~/.aliases
 echo -e "Copying terminator config..."
 mkdir ~/.config/terminator
 cp ~/Kali-Setup/terminator/config ~/.config/terminator/config
 echo -e "Copying tmux files and plugins..."
-cp ~/Kali-Setup/tmux/.tmux.conf ~/
+cp ~/Kali-Setup/tmux/tmux.conf ~/.tmux.conf
 mkdir ~/.tmux
 mkdir ~/.tmux/plugins
 cp -r ~/Kali-Setup/tmux/tpm ~/.tmux/plugins/
@@ -151,6 +147,7 @@ echo -e "Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
 sudo cp ~/Kali-Setup/Fonts/*.ttf /usr/share/fonts/truetype/MesloLGS/
 echo -e "Copying fusuma config..."
+mksir ~/.config/fusuma
 cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
 
 echo -e "Setting Wallapaper..."
