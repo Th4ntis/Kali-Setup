@@ -17,7 +17,7 @@ sudo apt-get -y -qq upgrade
 echo -e "$green Complete"
 
 echo -e "\n$green Installing tools via apt-get..."
-sudo apt install -y -qq terminator neo4j bloodhound amass pipx libu2f-udev xclip responder realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11 xorg xrdp qdbus
+sudo apt install -y -qq terminator neo4j bloodhound amass pipx netexec libu2f-udev xclip responder realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11 xorg xrdp qdbus
 echo -e "$green Complete"
 
 echo -e "\n$green Making tools folder under ~/Tools"
@@ -34,12 +34,12 @@ echo -e "$green Complete"
 echo -e "\n$green Unzipping rockyou.txt"
 cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
 
-#echo -e "\n $green adding GOPATH to .zshrc"
-#echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
-#echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
-#source ~/.zshrc
-#mkdir -p ~/.go/{bin,pkg,src}
-#echo -e "$green Complete"
+echo -e "\n$green adding GOPATH to .zshrc"
+echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
+echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
+source ~/.zshrc
+mkdir -p ~/.go/{bin,pkg,src}
+echo -e "$green Complete"
 
 echo -e "\n$green Installing Bettercap and Bettercap WebUI..."
 go install github.com/bettercap/bettercap@latest
@@ -90,12 +90,6 @@ echo -e "$green Complete"
 echo -e "\n$green Getting OneDriveUser Enum"
 git clone --quiet https://github.com/nyxgeek/onedrive_user_enum.git ~/Tools/OneDrive_User_Enum > /dev/null
 echo -e "$green Complete"
-
-# May not be needed with NetExec being added to Kali 2024.2
-#echo -e "\n $green Installing NetExec"
-#pipx install git+https://github.com/Pennyw0rth/NetExec
-#sudo pipx install git+https://github.com/Pennyw0rth/NetExec
-#echo -e "$green Complete"
 
 echo -e "\n$green Installing DonPAPI"
 pipx install donpapi
