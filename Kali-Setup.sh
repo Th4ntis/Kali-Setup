@@ -50,7 +50,7 @@ echo -e "Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
 sudo cp ~/Kali-Setup/Fonts/*.ttf /usr/share/fonts/truetype/MesloLGS/
 echo -e "Copying fusuma config..."
-mksir ~/.config/fusuma
+mkdir ~/.config/fusuma
 cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
 
 echo -e "Setting Wallapaper..."
