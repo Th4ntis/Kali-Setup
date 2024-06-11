@@ -47,7 +47,7 @@ cp -r ~/Kali-Setup/tmux/tmux-cpu ~/.tmux/plugins/
 cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
 echo -e "Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
-sudo cp ~/Kali-Setup/Fonts/*.ttf /usr/share/fonts/truetype/MesloLGS/
+sudo cp ~/Kali-Setup/Fonts/* /usr/share/fonts/truetype/MesloLGS/
 echo -e "Copying fusuma config..."
 mkdir ~/.config/fusuma
 cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
