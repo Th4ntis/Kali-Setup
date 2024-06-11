@@ -169,7 +169,7 @@ echo -e "$green Complete"
 echo -e "\n$green Installing XRDP and ZORG for RDP"
 sudo apt install -y -qq xrdp xorg
 
-echo -e "\n$green Changinrg RDP Port to 3390"
+echo -e "\n$green Changing RDP Port to 3390"
 sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
 
 echo -e "\n$green ===== All finished! Reboot for any/all changes to take affect ===== $green\n"
