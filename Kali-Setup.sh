@@ -64,6 +64,20 @@ sudo sed -i 's|theme-name = Kali-Light|theme-name = Kali-Dark|g' /etc/lightdm/li
 sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
+echo -e "$green Complete"
+
+echo -e "\n$green adding GOPATH to .zshrc"
+echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
+echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
+mkdir -p ~/.go/{bin,pkg,src}
+echo -e "$green Complete"
+
+echo -e "\n$green Adding pipx path to .zshrc"
+echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
+echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
+echo -e "$green Complete"
+
+source ~/.zshrc
 
 echo -e "\n$green Installing Google Chrome..."
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Chrome.deb
@@ -72,13 +86,6 @@ echo -e "$green Complete"
 
 echo -e "\n$green Unzipping rockyou.txt"
 cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
-
-echo -e "\n$green adding GOPATH to .zshrc"
-echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
-echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
-source ~/.zshrc
-mkdir -p ~/.go/{bin,pkg,src}
-echo -e "$green Complete"
 
 echo -e "\n$green Installing Bettercap and Bettercap WebUI..."
 go install github.com/bettercap/bettercap@latest
@@ -163,9 +170,8 @@ echo -e "\n$green Setting up RDP over port 3389"
 sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
 echo -e "$green Complete"
 
-echo -e "\n$green Adding pipx path to .zshrc"
-echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
-echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
+echo -e "\n$green Cleaning up"
+sudo rm -r ~/Chrome.deb
 echo -e "$green Complete"
 
 echo -e "\n$green All finished. Reboot for any/all changes to take affect $green\n"
