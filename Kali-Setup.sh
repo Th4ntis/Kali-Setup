@@ -26,50 +26,6 @@ mkdir ~/Tools
 echo -e "\n$green Copying .zshrc to .zshrc.bak"
 cp ~/.zshrc .zshrc.bak
 
-echo -e "\n$green Getting config/dot files..."
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k > /dev/null
-
-git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
-echo -e "Copying zshrc..."
-cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
-echo -e "Copying aliases..."
-cp ~/Kali-Setup/zsh/aliases ~/.aliases
-echo -e "Copying terminator config..."
-mkdir ~/.config/terminator
-cp ~/Kali-Setup/terminator/config ~/.config/terminator/config
-echo -e "Copying tmux files and plugins..."
-cp ~/Kali-Setup/tmux/tmux.conf ~/.tmux.conf
-mkdir ~/.tmux
-mkdir ~/.tmux/plugins
-cp -r ~/Kali-Setup/tmux/tpm ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-battery ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-cpu ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
-echo -e "Copying fonts..."
-sudo mkdir /usr/share/fonts/truetype/MesloLGS
-sudo cp ~/Kali-Setup/Fonts/*.ttf /usr/share/fonts/truetype/MesloLGS/
-echo -e "Copying fusuma config..."
-mkdir ~/.config/fusuma
-cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
-
-echo -e "Setting Wallapaper..."
-sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
-for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
-for i in $(xfconf-query -c xfce4-desktop -lv | grep image-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 4; done
-
-sudo wget -q -O /usr/share/backgrounds/kali-linux.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/Kali-Linux.png
-sudo sed -i 's|/usr/share/desktop-base/kali-theme/login/background|/usr/share/backgrounds/kali-linux.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|theme-name = Kali-Light|theme-name = Kali-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
-echo -e "$green Complete"
-
-wget -q -O ~/Post-Initial.sh https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/Post-Initial.sh
-chmod +x ~/Post-Initial.sh
-terminator -e "~/Post-Initial.sh"
-
 echo -e "\n$green adding GOPATH to .zshrc"
 echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
 echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
@@ -129,7 +85,7 @@ pipx install shodan
 sudo pipx install shodan
 echo -e "$green Complete"
 
-echo -e "\n$green Installing PEASS"
+echo -e "\n$green Getting PEASS"
 git clone --quiet https://github.com/carlospolop/PEASS-ng.git ~/Tools/PEASS-ng > /dev/null
 echo -e "$green Complete"
 
@@ -176,6 +132,46 @@ echo -e "$green Complete"
 
 echo -e "\n$green Cleaning up"
 sudo rm -r ~/Chrome.deb
+echo -e "$green Complete"
+
+echo -e "\n$green Getting config/dot files..."
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k > /dev/null
+
+git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
+echo -e "Copying zshrc..."
+cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
+echo -e "Copying aliases..."
+cp ~/Kali-Setup/zsh/aliases ~/.aliases
+echo -e "Copying terminator config..."
+mkdir ~/.config/terminator
+cp ~/Kali-Setup/terminator/config ~/.config/terminator/config
+echo -e "Copying tmux files and plugins..."
+cp ~/Kali-Setup/tmux/tmux.conf ~/.tmux.conf
+mkdir ~/.tmux
+mkdir ~/.tmux/plugins
+cp -r ~/Kali-Setup/tmux/tpm ~/.tmux/plugins/
+cp -r ~/Kali-Setup/tmux/tmux-battery ~/.tmux/plugins/
+cp -r ~/Kali-Setup/tmux/tmux-cpu ~/.tmux/plugins/
+cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
+echo -e "Copying fonts..."
+sudo mkdir /usr/share/fonts/truetype/MesloLGS
+sudo cp ~/Kali-Setup/Fonts/*.ttf /usr/share/fonts/truetype/MesloLGS/
+echo -e "Copying fusuma config..."
+mkdir ~/.config/fusuma
+cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
+
+echo -e "Setting Wallapaper..."
+sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
+for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
+for i in $(xfconf-query -c xfce4-desktop -lv | grep image-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 4; done
+
+sudo wget -q -O /usr/share/backgrounds/kali-linux.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/Kali-Linux.png
+sudo sed -i 's|/usr/share/desktop-base/kali-theme/login/background|/usr/share/backgrounds/kali-linux.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|theme-name = Kali-Light|theme-name = Kali-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
 echo -e "$green Complete"
 
 echo -e "\n$green All finished. Reboot for any/all changes to take affect $green\n"
