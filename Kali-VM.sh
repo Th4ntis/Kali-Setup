@@ -67,6 +67,8 @@ sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/ligh
 sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
 
+sudo sed -i 's|GRUB_TIMEOUT=5|GRUB_TIMEOUT=0|g' /etc/lightdm/lightdm-gtk-greeter.conf
+
 echo -e "\n$green Copying .zshrc to .zshrc.bak"
 cp ~/.zshrc .zshrc.bak
 
