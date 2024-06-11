@@ -54,7 +54,7 @@ mkdir ~/.config/fusuma
 cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
 
 echo -e "Setting Wallapaper..."
-sudo wget -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
+sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
 for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
 for i in $(xfconf-query -c xfce4-desktop -lv | grep image-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 4; done
 
@@ -65,6 +65,10 @@ sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/ligh
 sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
 echo -e "$green Complete"
+
+wget -q -O ~/Post-Initial.sh https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/Post-Initial.sh
+chmod +x ~/Post-Initial.sh
+terminator -e "~/Post-Initial.sh"
 
 echo -e "\n$green adding GOPATH to .zshrc"
 echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
