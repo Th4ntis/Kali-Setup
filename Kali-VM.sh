@@ -27,11 +27,14 @@ echo -e "\n$green Making tools folder under ~/Tools"
 sleep 3
 mkdir ~/Tools
 
+echo -e "\n$green Copying .zshrc to .zshrc.bak"
+cp ~/.zshrc .zshrc.bak
+
 echo -e "\n$green Getting config/dot files..."
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k > /dev/null
 
-git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
+# git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
 echo -e "Copying zshrc..."
 cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
 echo -e "Copying aliases..."
@@ -68,9 +71,6 @@ sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Re
 sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
 
 sudo sed -i 's|GRUB_TIMEOUT=5|GRUB_TIMEOUT=0|g' /etc/lightdm/lightdm-gtk-greeter.conf
-
-echo -e "\n$green Copying .zshrc to .zshrc.bak"
-cp ~/.zshrc .zshrc.bak
 
 echo -e "\n$green adding GOPATH to .zshrc"
 echo '# GO Path' >> ~/.zshrc
