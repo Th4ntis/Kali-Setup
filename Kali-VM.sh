@@ -164,37 +164,10 @@ echo -e "\n$green Changing XFCE Shotcuts"
 wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce-shortcuts.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 echo -e "$green Complete"
 
-YN() {
-    while true; do
-        read -p "$1 [y/n]: " yn
-        case $yn in
-            [Yy]* ) return 0;;  # Yes
-            [Nn]* ) return 1;;  # No
-            * ) echo "Please answer yes or no.";;
-        esac
-    done
-}
+echo -e "\n$green Installing XRDP and ZORG for RDP"
+sudo apt install -y -qq xrdp xorg
 
-if YN "Do you want to enable SSH on boot?"; then
-    sudo systemctl start ssh
-    sudo systemctl enable ssh
-else
-    echo -e "Not Enabling SSH on boot"
-fi
-
-if YN "Do you want to enable RDP on this VM over port 3390?"; then
-    sudo apt install -y -qq xrdp xorg
-    sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-    
-    # Ask the user a second yes/no question
-    if YN "Do you want to enable RDP on boot?"; then
-        sudo systemctl start xrdp
-        sudo systemctl enable xrdp
-    else
-        echo "Not enabling RDP on boot."
-    fi
-else
-    echo "Not enable RDP."
-fi
+echo -e "\n$green Changinrg RDP Port to 3390"
+sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
 
 echo -e "\n$green ===== All finished! Reboot for any/all changes to take affect ===== $green\n"
