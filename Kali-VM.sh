@@ -62,7 +62,7 @@ sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent
 for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
 for i in $(xfconf-query -c xfce4-desktop -lv | grep image-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 4; done
 
-ehco -e "Setting LightDM Greeting settings..."
+echo -e "Setting LightDM Greeting settings..."
 sudo wget -q -O /usr/share/backgrounds/kali-linux.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/Kali-Linux.png
 sudo sed -i 's|/usr/share/desktop-base/kali-theme/login/background|/usr/share/backgrounds/kali-linux.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i 's|theme-name = Kali-Light|theme-name = Kali-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
