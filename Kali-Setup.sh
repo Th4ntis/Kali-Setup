@@ -69,12 +69,14 @@ echo -e "\n$green Copying .zshrc to .zshrc.bak"
 cp ~/.zshrc .zshrc.bak
 
 echo -e "\n$green adding GOPATH to .zshrc"
+echo '# GO Path' >> ~/.zshrc
 echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
 echo 'export PATH="$PATH:${GOPATH//://bin:}/bin"' >> ~/.zshrc
 mkdir -p ~/.go/{bin,pkg,src}
 echo -e "$green Complete"
 
 echo -e "\n$green Adding pipx path to .zshrc"
+echo 'PIPX Path' >> ~/.zshrc
 echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
 echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
 echo -e "$green Complete"
