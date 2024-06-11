@@ -26,6 +26,45 @@ mkdir ~/Tools
 echo -e "\n$green Copying .zshrc to .zshrc.bak"
 cp ~/.zshrc .zshrc.bak
 
+echo -e "\n$green Getting config/dot files..."
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k > /dev/null
+
+git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
+echo -e "Copying zshrc..."
+cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
+echo -e "Copying aliases..."
+cp ~/Kali-Setup/zsh/aliases ~/.aliases
+echo -e "Copying terminator config..."
+mkdir ~/.config/terminator
+cp ~/Kali-Setup/terminator/config ~/.config/terminator/config
+echo -e "Copying tmux files and plugins..."
+cp ~/Kali-Setup/tmux/tmux.conf ~/.tmux.conf
+mkdir ~/.tmux
+mkdir ~/.tmux/plugins
+cp -r ~/Kali-Setup/tmux/tpm ~/.tmux/plugins/
+cp -r ~/Kali-Setup/tmux/tmux-battery ~/.tmux/plugins/
+cp -r ~/Kali-Setup/tmux/tmux-cpu ~/.tmux/plugins/
+cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
+echo -e "Copying fonts..."
+sudo mkdir /usr/share/fonts/truetype/MesloLGS
+sudo cp ~/Kali-Setup/Fonts/*.ttf /usr/share/fonts/truetype/MesloLGS/
+echo -e "Copying fusuma config..."
+mksir ~/.config/fusuma
+cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
+
+echo -e "Setting Wallapaper..."
+sudo wget -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
+for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
+for i in $(xfconf-query -c xfce4-desktop -lv | grep image-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 4; done
+
+sudo wget -q -O /usr/share/backgrounds/kali-linux.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/Kali-Linux.png
+sudo sed -i 's|/usr/share/desktop-base/kali-theme/login/background|/usr/share/backgrounds/kali-linux.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|theme-name = Kali-Light|theme-name = Kali-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
+
 echo -e "\n$green Installing Google Chrome..."
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Chrome.deb
 sudo dpkg -i ~/Chrome.deb;sudo apt install -y -f 2> /dev/null
@@ -112,61 +151,16 @@ echo -e "\n$green Changing Power Settings"
 wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 echo -e "$green Complete"
 
+echo -e "\n$green Changing XFCE Shotcuts"
+wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce-shortcuts.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+echo -e "$green Complete"
+
 echo -e "\n$green Adding usser $USER to vboxusers group for Virtualbox"
 sudo adduser $USER vboxusers
 echo -e "$green Complete"
 
 echo -e "\n$green Setting up RDP over port 3389"
 sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-echo -e "$green Complete"
-
-echo -e "\n$green Getting config/dot files..."
-git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
-echo -e "Copying zshrc..."
-cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
-echo -e "Copying aliases..."
-cp ~/Kali-Setup/zsh/aliases ~/.aliases
-echo -e "Copying terminator config..."
-mkdir ~/.config/terminator
-cp ~/Kali-Setup/terminator/config ~/.config/terminator/config
-echo -e "Copying tmux files and plugins..."
-cp ~/Kali-Setup/tmux/tmux.conf ~/.tmux.conf
-mkdir ~/.tmux
-mkdir ~/.tmux/plugins
-cp -r ~/Kali-Setup/tmux/tpm ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-battery ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-cpu ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
-echo -e "Copying fonts..."
-sudo mkdir /usr/share/fonts/truetype/MesloLGS
-sudo cp ~/Kali-Setup/Fonts/*.ttf /usr/share/fonts/truetype/MesloLGS/
-echo -e "Copying fusuma config..."
-mksir ~/.config/fusuma
-cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
-
-echo -e "Setting Wallapaper..."
-sudo wget -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
-WALLPAPER_PATH="/usr/share/backgrounds/th4ntis.png"
-# PLASMA_CONFIG_DIR="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
-
-# Check if the provided file exists
-if [ ! -f "$WALLPAPER_PATH" ]; then
-    echo "File not found!"
-    exit 1
-fi
-
-# Set the wallpaper using the provided PNG file
-wallpaper_path=$(realpath "$WALLPAPER_PATH")
-qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
-var Desktops = desktops();
-for (i=0; i<Desktops.length; i++) {
-    d = Desktops[i];
-    d.wallpaperPlugin = 'org.kde.image';
-    d.currentConfigGroup = Array('Wallpaper', 'org.kde.image', 'General');
-    d.writeConfig('Image', 'file://$wallpaper_path')
-    d.writeConfig('FillMode', 6);  // 6 is for 'Center'
-}
-"
 echo -e "$green Complete"
 
 echo -e "\n$green Adding pipx path to .zshrc"
