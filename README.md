@@ -26,7 +26,7 @@ chmod +x Kali-VM.sh
   * Disabled sleeping when the lid is closed
   * Adds GO Path and pipx path to .zshrc
   * Grabs the following tools from github: Responder, Impacket, PEASS, PCredz, OneDrive User Enum, GNmap Parser
-  * Installs: Google Chrome, Nessus, Joplin, HCXDumpTool, HCXTools, Hashcat Utilities
+  * Installs: [Google Chrome](https://www.google.com/chrome/), [Nessus](https://www.tenable.com/products/nessus), [Joplin](https://joplinapp.org/), [HCXDumpTool](https://github.com/ZerBea/hcxdumptool), [HCXTools](https://github.com/ZerBea/hcxtools), [Hashcat Utilities](https://github.com/hashcat/hashcat-utils)
   * Changes XFCE power settings, keyboard shortcuts, and panel items/options.
 * `Kali-VM.sh` - Used when Kali is installed in a virtual machine.
   * This will install tools/dependencies via apt
@@ -35,7 +35,7 @@ chmod +x Kali-VM.sh
   * Setup my personal .files and configs (Oh-My-ZSH, tmux, terminator, aliases, wallpaper, etc.)
   * Adds GO Path and pipx path to .zshrc
   * Grabs the following tools from github: Responder, Impacket, PEASS, PCredz, OneDrive User Enum, GNmap Parser
-  * Installs: Google Chrome, Nessus, Joplin, HCXDumpTool, HCXTools, Hashcat Utilities
+  * Installs: [Google Chrome](https://www.google.com/chrome/), [Nessus](https://www.tenable.com/products/nessus), [HCXDumpTool](https://github.com/ZerBea/hcxdumptool), [HCXTools](https://github.com/ZerBea/hcxtools), [Hashcat Utilities](https://github.com/hashcat/hashcat-utils)
   * Changes XFCE power settings, keyboard shortcuts, and panel items/options.
  
 You can start/enable SSH and RDP for remore access with:
