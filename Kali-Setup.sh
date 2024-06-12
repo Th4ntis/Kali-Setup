@@ -59,7 +59,7 @@ cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
 
 echo -e "\n$green Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
-sudo cp ~/Kali-Setup/Fonts/* /usr/share/fonts/truetype/MesloLGS/
+sudo cp ~/Kali-Setup/fonts/* /usr/share/fonts/truetype/MesloLGS/
 
 echo -e "\n$green Copying fusuma config..."
 mkdir ~/.config/fusuma
