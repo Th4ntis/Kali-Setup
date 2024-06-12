@@ -18,13 +18,9 @@ echo -e "\n$green Running apt upgrade..."
 sudo apt-get -y -qq upgrade
 echo -e "$green Complete"
 
-sleep 3
-
 echo -e "\n$green Installing tools via apt-get..."
 sudo apt install -y -qq terminator neo4j bloodhound bloodhound.py amass pipx netexec libu2f-udev xclip realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11 xorg xrdp autorecon
 echo -e "$green Complete"
-
-sleep 3
 
 echo -e "\n$green Making tools folder under ~/Tools"
 mkdir ~/Tools
@@ -85,18 +81,10 @@ echo -e "\n$green Adding pipx path to .zshrc"
 echo '# PIPX Path' >> ~/.zshrc
 echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
 echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
+sudo pipx ensurepath
 echo -e "$green Complete"
 
 source ~/.zshrc
-
-echo -e "\n$green Installing Google Chrome..."
-wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Chrome.deb
-sudo dpkg -i ~/Chrome.deb;sudo apt install -y -f 2> /dev/null
-sudo rm -r ~/Chrome.deb
-echo -e "$green Complete"
-
-echo -e "\n$green Unzipping rockyou.txt"
-cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
 
 echo -e "\n$green Getting Responder as backup to installed Responder in directory ~/Tools/"
 git clone --quiet https://github.com/lgandx/Responder.git ~/Tools/Responder > /dev/null
@@ -122,6 +110,26 @@ echo -e "\n$green Getting gnmap parser in directory ~/Tools/"
 git clone --quiet https://github.com/jasonjfrank/gnmap-parser.git ~/Tools/gnmap-parser > /dev/null
 echo -e "$green Complete"
 
+echo -e "\n$green Installing Google Chrome..."
+wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Chrome.deb
+sudo dpkg -i ~/Chrome.deb;sudo apt install -y -f 2> /dev/null
+sudo rm -r ~/Chrome.deb
+echo -e "$green Complete"
+
+echo -e "\n$green Installing ShodanCLI"
+pipx install shodan
+sudo pipx install shodan
+echo -e "$green Complete"
+
+echo -e "\n$green Installing DonPAPI"
+pipx install donpapi
+sudo pipx install donpapi
+echo -e "$green Complete"
+
+echo -e "\n$green Installing Joplin..."
+wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
+echo -e "$green Complete"
+
 echo -e "\n$green Installing Bettercap and Bettercap WebUI..."
 go install github.com/bettercap/bettercap@latest
 sudo ~/.go/bin/bettercap -eval "caplets.update; ui.update; q"
@@ -140,16 +148,6 @@ echo -e "$green Complete"
 echo -e "\n$green Installing HCXTools"
 git clone --quiet https://github.com/ZerBea/hcxtools.git ~/Tools/hcxtools > /dev/null
 cd ~/Tools/hcxtools&& sudo make && sudo make install
-echo -e "$green Complete"
-
-echo -e "\n$green Installing ShodanCLI"
-pipx install shodan
-sudo pipx install shodan
-echo -e "$green Complete"
-
-echo -e "\n$green Installing DonPAPI"
-pipx install donpapi
-sudo pipx install donpapi
 echo -e "$green Complete"
 
 echo -e "\n$green Installing Nessus"
@@ -172,6 +170,9 @@ echo -e "\n$green Changing XFCE Panel"
 wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce/xfce4-panel.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 echo -e "$green Complete"
 
+echo -e "\n$green Unzipping rockyou.txt"
+cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
+
 echo -e "\n$green Adding usser $USER to vboxusers group for Virtualbox"
 sudo adduser $USER vboxusers
 echo -e "$green Complete"
@@ -179,10 +180,4 @@ echo -e "$green Complete"
 echo -e "\n$green Setting up RDP over port 3389"
 sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
 echo -e "$green Complete"
-
-#echo -e "\n $green Installing RTL8812AU Drivers"
-#git clone --quiet -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git ~/Tools/rtl8812au > /dev/null
-#cd ~/Tools/rtl8812au && sudo make && sudo make install
-#echo -e "$green Complete"
-
 echo -e "\n$green ===== All finished! Reboot for any/all changes to take affect ===== $green\n"
