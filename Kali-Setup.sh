@@ -10,11 +10,8 @@ green='\e[1;33m[+]\e[0m'
 
 clear
 
-echo -e "\n$green Running apt update..."
-sudo apt-get update
-echo -e "$green Complete"
-
-echo -e "\n$green Running apt upgrade..."
+echo -e "\n$green Running sudo apt update and sudo apt-upgrade..."
+sudo apt-get -qq update
 sudo apt-get -y -qq upgrade
 echo -e "$green Complete"
 
@@ -22,8 +19,19 @@ echo -e "\n$green Installing tools via apt-get..."
 sudo apt install -y -qq terminator neo4j bloodhound bloodhound.py amass pipx netexec libu2f-udev xclip realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11 xorg xrdp autorecon
 echo -e "$green Complete"
 
+echo -e "\n$green Adding usser $USER to vboxusers group for Virtualbox"
+sudo adduser $USER vboxusers
+echo -e "$green Complete"
+
+echo -e "\n$green Setting up RDP over port 3389"
+sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
+echo -e "$green Complete"
+
 echo -e "\n$green Making tools folder under ~/Tools"
 mkdir ~/Tools
+
+echo -e "\n$green Copying .zshrc to .zshrc.bak"
+cp ~/.zshrc .zshrc.bak
 
 echo -e "\n$green Getting config/dot files..."
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -66,9 +74,6 @@ sudo sed -i 's|theme-name = Kali-Light|theme-name = Kali-Dark|g' /etc/lightdm/li
 sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
-
-echo -e "\n$green Copying .zshrc to .zshrc.bak"
-cp ~/.zshrc .zshrc.bak
 
 echo -e "\n$green adding GOPATH to .zshrc"
 echo '# GO Path' >> ~/.zshrc
@@ -170,14 +175,7 @@ echo -e "\n$green Changing XFCE Panel"
 wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce/xfce4-panel.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 echo -e "$green Complete"
 
-echo -e "\n$green Unzipping rockyou.txt"
-cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
+#echo -e "\n$green Unzipping rockyou.txt"
+#cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
 
-echo -e "\n$green Adding usser $USER to vboxusers group for Virtualbox"
-sudo adduser $USER vboxusers
-echo -e "$green Complete"
-
-echo -e "\n$green Setting up RDP over port 3389"
-sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-echo -e "$green Complete"
 echo -e "\n$green ===== All finished! Reboot for any/all changes to take affect ===== $green\n"
