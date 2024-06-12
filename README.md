@@ -19,6 +19,7 @@ chmod +x Kali-VM.sh
 ## Description
 * `Kali-Setup.sh` - Used when Kali is installed on my Thinkpad T480(but can be used on any hardware)
   * This will install tools/dependencies via apt
+    * terminator neo4j bloodhound bloodhound.py amass pipx netexec xclip realtek-rtl88xxau-dkms dkms libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso virtualbox-guest-utils virtualbox-guest-x11 xorg xrdp autorecon
     * Then install Battercap via GO, and ShodanCLi and DonPapi via pipx
   * Add users to the vboxusers group
   * Enable RDP over port 3390
@@ -30,6 +31,7 @@ chmod +x Kali-VM.sh
   * Changes XFCE power settings, keyboard shortcuts, and panel items/options.
 * `Kali-VM.sh` - Used when Kali is installed in a virtual machine.
   * This will install tools/dependencies via apt
+    * terminator neo4j bloodhound bloodhound.py amass pipx netexec xclip realtek-rtl88xxau-dkms dkms libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools xorg xrdp autorecon
   * Then install Battercap via GO, and ShodanCLi and DonPapi via pipx
   * Enable RDP over port 3390
   * Setup my personal .files and configs (Oh-My-ZSH, tmux, terminator, aliases, wallpaper, etc.)
