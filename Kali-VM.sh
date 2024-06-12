@@ -34,7 +34,7 @@ echo -e "\n$green Getting config/dot files..."
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k > /dev/null
 
-# git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
+git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
 echo -e "Copying zshrc..."
 cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
 echo -e "Copying aliases..."
