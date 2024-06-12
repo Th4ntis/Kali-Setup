@@ -16,3 +16,5 @@ alias getip="nslookup $1 | grep Address: | grep -v \# | cut -d' ' -f2"
 alias http='sudo python3 -m http.server 80'
 alias myip='curl ifconfig.me/ip'
 alias ifconfig='ip -c --brief addr show'
+alias sf="sudo spiderfoot -l 0.0.0.0:8008" # opens Spiderfoot to listen on any IP over port 8008
+alias n4j="sudo neo4j console" # starts the neo4j console for Bloodhound
