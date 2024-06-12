@@ -61,15 +61,6 @@ echo -e "\n$green Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
 sudo cp ~/Kali-Setup/fonts/* /usr/share/fonts/truetype/MesloLGS/
 
-echo -e "\n$green Installing and setitng up Fusuma..."
-sudo gpasswd -a $USER input
-newgrp input
-sudo apt-get install -y -qq libinput-tools ruby xdotool > /dev/null
-sudo gem install fusuma
-mkdir ~/.config/fusuma
-cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
-echo -e "$green Complete"
-
 echo -e "\n$green Setting Wallapaper..."
 sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
 for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
