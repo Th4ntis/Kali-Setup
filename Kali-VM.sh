@@ -53,9 +53,6 @@ cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
 echo -e "Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
 sudo cp ~/Kali-Setup/fonts/* /usr/share/fonts/truetype/MesloLGS/
-echo -e "Copying fusuma config..."
-mkdir ~/.config/fusuma
-cp -r ~/Kali-Setup/fusuma/config.yml ~/.config/fusuma/
 
 echo -e "Setting Wallapaper..."
 sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
