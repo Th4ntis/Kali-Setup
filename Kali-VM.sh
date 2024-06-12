@@ -82,6 +82,7 @@ echo -e "\n$green Adding pipx path to .zshrc"
 echo '# PIPX Path' >> ~/.zshrc
 echo 'export PATH="$PATH:/home/th4ntis/.local/bin"' >> ~/.zshrc
 echo 'export PATH="$PATH:/root/.local/bin"' >> ~/.zshrc
+sudo pipx ensurepath
 echo -e "$green Complete"
 
 source ~/.zshrc
