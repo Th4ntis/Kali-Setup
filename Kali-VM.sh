@@ -72,6 +72,8 @@ sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share
 
 sudo sed -i 's|GRUB_TIMEOUT=5|GRUB_TIMEOUT=0|g' /etc/lightdm/lightdm-gtk-greeter.conf
 
+sudo update-grub
+
 echo -e "\n$green adding GOPATH to .zshrc"
 echo '# GO Path' >> ~/.zshrc
 echo 'export GOPATH="$HOME/.go"' >> ~/.zshrc
