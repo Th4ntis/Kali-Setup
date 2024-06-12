@@ -60,6 +60,8 @@ echo -e "Setting Wallapaper..."
 sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
 for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
 for i in $(xfconf-query -c xfce4-desktop -lv | grep image-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 4; done
+for i in $(xfconf-query -c xfce4-desktop -lv | grep color-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 0; done
+for i in $(xfconf-query -c xfce4-desktop -lv | grep rgba1 | awk '{print $1}'); do  xfconf-query -c xfce4-desktop -p $i -t double -s 0 -t double -s 0 -t double -s 0 -t double -s 1; done
 
 ehco -e "Setting LightDM Greeting settings..."
 sudo wget -q -O /usr/share/backgrounds/kali-linux.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/Kali-Linux.png
