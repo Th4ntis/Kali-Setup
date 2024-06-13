@@ -169,17 +169,10 @@ sudo dpkg -i /tmp/nessus_amd64.deb
 sudo rm -f /tmp/nessus_amd64.deb
 echo -e "$green Complete"
 
-#echo -e "\n$green Changing Power Settings"
-#wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce/xfce4-power-manager.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
-#echo -e "$green Complete"
-
-#echo -e "\n$green Changing XFCE Shotcuts"
-#wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce/xfce-shortcuts.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-shortcuts.xml
-#echo -e "$green Complete"
-
-#echo -e "\n$green Changing XFCE Panel"
-#wget -q https://raw.githubusercontent.com/th4ntis/Kali-Setup/xfce/xfce4-panel.xml -O /home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-#echo -e "$green Complete"
+echo -e "\n$green Changing XFCE4 config"
+cp -r ~/Kali-Setup/xfce4 ~/.config
+chmod 755 ~/.config/xfce4
+echo -e "$green Complete"
 
 #echo -e "\n$green Unzipping rockyou.txt"
 #cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
