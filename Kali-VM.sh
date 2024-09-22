@@ -48,10 +48,10 @@ echo -e "\n$green Copying tmux files and plugins..."
 cp ~/Kali-Setup/tmux/tmux.conf ~/.tmux.conf
 mkdir ~/.tmux
 mkdir ~/.tmux/plugins
-cp -r ~/Kali-Setup/tmux/tpm ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-battery ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-cpu ~/.tmux/plugins/
-cp -r ~/Kali-Setup/tmux/tmux-yank ~/.tmux/plugins/
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null
+git clone https://github.com/tmux-plugins/tmux-cpu ~/.tmux/plugins/tmux-cpu > /dev/null
+git clone https://github.com/tmux-plugins/tmux-battery ~/.tmux/plugins/tmux-battery > /dev/null
+git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank > /dev/null
 
 echo -e "\n$green Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
