@@ -20,3 +20,5 @@ alias sf="sudo spiderfoot -l 0.0.0.0:8008" # opens Spiderfoot to listen on any I
 alias n4j="sudo neo4j console" # starts the neo4j console for Bloodhound
 alias start-nessus="sudo /bin/systemctl start nessusd.service"
 alias stop-nessus="sudo /bin/systemctl stop nessusd.service"
+alias kismet-wardriving='kismet -c coconut:name=Coconut -c hci0:name=Bluetooth -t Wardrive --override wardrive' # Sets Wardriving on WiFi Coconut
+alias CyberSec-venv='source /home/th4ntis/.CyberSec/bin/activate' # Activates python virtual environment
