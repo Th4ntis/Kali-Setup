@@ -16,7 +16,7 @@ sudo apt-get -y -qq upgrade
 echo -e "$green Complete"
 
 echo -e "\n$green Installing tools via apt-get..."
-sudo apt install -y -qq terminator neo4j bloodhound bloodhound.py amass pipx netexec libu2f-udev xclip realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools xorg xrdp autorecon
+sudo apt install -y -qq terminator neo4j bloodhound bloodhound.py amass pipx git xclip realtek-rtl88xxau-dkms dkms libcurl4-openssl-dev libssl-dev zlib1g-dev libnetfilter-queue-dev libusb-1.0-0-dev libpcap-dev flameshot bridge-utils xfce4-dev-tools pkg-config golang-gir-gio-2.0-dev libgtk-3-dev libwnck-3-dev libxfce4ui-2-dev libxfce4panel-2.0-dev docker.io docker-compose golang-go gpsd gpsd-clients gpsd-tools xorg xrdp autorecon
 echo -e "$green Complete"
 
 echo -e "\n$green Setting up RDP over port 3389"
@@ -32,7 +32,6 @@ cp ~/.zshrc .zshrc.bak
 echo -e "\n$green Getting config/dot files..."
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k > /dev/null
-#git clone --quiet https://github.com/Th4ntis/Kali-Setup.git ~/Kali-Setup > /dev/null
 
 echo -e "\n$green Copying zshrc..."
 cp ~/Kali-Setup/zsh/zshrc ~/.zshrc
@@ -50,27 +49,15 @@ mkdir ~/.tmux
 mkdir ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null
 git clone https://github.com/tmux-plugins/tmux-cpu ~/.tmux/plugins/tmux-cpu > /dev/null
-git clone https://github.com/tmux-plugins/tmux-battery ~/.tmux/plugins/tmux-battery > /dev/null
 git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank > /dev/null
 
 echo -e "\n$green Copying fonts..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
 sudo cp ~/Kali-Setup/fonts/* /usr/share/fonts/truetype/MesloLGS/
 
-echo -e "\n$green Setting Wallapaper..."
+echo -e "\n$green Saving Wallapapers to /usr/share/backgrounds/ ..."
 sudo wget -q -O /usr/share/backgrounds/th4ntis.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/CyberSpider-UG-Outline.png
-for i in $(xfconf-query -c xfce4-desktop -lv | grep last-image | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s /usr/share/backgrounds/th4ntis.png; done
-for i in $(xfconf-query -c xfce4-desktop -lv | grep image-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 4; done
-for i in $(xfconf-query -c xfce4-desktop -lv | grep color-style | awk '{print $1}'); do xfconf-query -c xfce4-desktop -p $i -s 0; done
-for i in $(xfconf-query -c xfce4-desktop -lv | grep rgba1 | awk '{print $1}'); do  xfconf-query -c xfce4-desktop -p $i -t double -s 0 -t double -s 0 -t double -s 0 -t double -s 1; done
-
-ehco -e "\n$green Setting LightDM Greeting settings..."
 sudo wget -q -O /usr/share/backgrounds/kali-linux.png https://raw.githubusercontent.com/th4ntis/Kali-Setup/main/images/Kali-Linux.png
-sudo sed -i 's|/usr/share/desktop-base/kali-theme/login/background|/usr/share/backgrounds/kali-linux.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|theme-name = Kali-Light|theme-name = Kali-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|font-name = Cantarell 11|font-name = Hack 11|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|icon-theme-name = Flat-Remix-Blue-Light|icon-theme-name = Flat-Remix-Blue-Dark|g' /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i 's|default-user-image = #emblem-kali|default-user-image = /usr/share/backgrounds/th4ntis.png|g' /etc/lightdm/lightdm-gtk-greeter.conf
 
 echo -e "\n$green adding GOPATH to .zshrc"
 echo '# GO Path' >> ~/.zshrc
@@ -87,12 +74,9 @@ echo -e "$green Complete"
 
 source ~/.zshrc
 
-echo -e "\n$green Getting Responder as backup to installed Responder in directory ~/Tools/"
-git clone --quiet https://github.com/lgandx/Responder.git ~/Tools/Responder > /dev/null
-echo -e "$green Complete"
-
-echo -e "\n$green Getting Impacket as backup to installed Ipacket in directory ~/Tools/"
-git clone --quiet https://github.com/fortra/impacket.git ~/Tools/Impacket > /dev/null
+echo -e "\n$green Installing Netexec from pipx"
+pipx ensurepath
+pipx install git+https://github.com/Pennyw0rth/NetExec
 echo -e "$green Complete"
 
 echo -e "\n$green Getting PEASS in directory ~/Tools/"
@@ -119,15 +103,11 @@ echo -e "$green Complete"
 
 echo -e "\n$green Installing ShodanCLI"
 pipx install shodan
-sudo pipx install shodan
 echo -e "$green Complete"
 
 echo -e "\n$green Installing DonPAPI"
 pipx install donpapi
-sudo pipx install donpapi
 echo -e "$green Complete"
-
-sudo pipx ensurepath
 
 echo -e "\n$green Installing Bettercap and Bettercap WebUI..."
 go install github.com/bettercap/bettercap@latest
@@ -155,11 +135,6 @@ nessus_amd64="https://www.tenable.com/downloads/api/v2/pages/nessus/files/$nessu
 sudo wget -q $nessus_amd64 -O /tmp/nessus_amd64.deb
 sudo dpkg -i /tmp/nessus_amd64.deb
 sudo rm -f /tmp/nessus_amd64.deb
-echo -e "$green Complete"
-
-echo -e "\n$green Changing XFCE4 config"
-cp -r ~/Kali-Setup/xfce4 ~/.config
-chmod 755 ~/.config/xfce4
 echo -e "$green Complete"
 
 #echo -e "\n$green Unzipping rockyou.txt"
