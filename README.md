@@ -14,7 +14,6 @@ chmod +x Kali-Setup.sh
 * `Kali-Setup.sh`
   * Adds GO Path and pipx path to .zshrc
   * Installs Bettercap via GO
-  * Installs NetExec, ShodanCli, and DonPapi via pipx
   * Add users to the vboxusers group
   * Installs the following tools/dependencies/drivers via apt:
     * terminator
@@ -51,16 +50,27 @@ chmod +x Kali-Setup.sh
     * xorg
     * xrdp
     * autorecon
+    * tesseract-ocr
+    * antiword
+  * Installs the following via pipx:
+    * [NetExec](https://github.com/Pennyw0rth/NetExec)
+    * [DeHashed-API-Tool](https://github.com/hmaverickadams/DeHashed-API-Tool)
+    * [ShodanCli](https://github.com/achillean/shodan-python)
+    * [DonPapi](https://github.com/login-securite/DonPAPI)
+    * [ManSpider](https://github.com/blacklanternsecurity/MANSPIDER)
   * Grabs the following tools and put them into `~/Tools/` as well as installs some to system:
     * [PEASS-ng](https://github.com/peass-ng/PEASS-ng)
     * [PCredz](https://github.com/lgandx/PCredz)
     * [OneDrive_User_Enum](https://github.com/nyxgeek/onedrive_user_enum)
-    * GNmap Parser
+    * [GNmap Parser](https://github.com/jasonjfrank/gnmap-parser)
     * [Google Chrome](https://www.google.com/chrome/)
     * [Nessus](https://www.tenable.com/products/nessus)
     * [HCXDumpTool](https://github.com/ZerBea/hcxdumptool)
     * [HCXTools](https://github.com/ZerBea/hcxtools)
     * [Hashcat Utilities](https://github.com/hashcat/hashcat-utils)
+    * [Kerbrute](https://github.com/ropnop/kerbrute)
+    * [SMBCrunch](https://github.com/Raikia/SMBCrunch)
+    * [SMBSpray](https://github.com/absolomb/smbspray)
  
 You can start/enable SSH and RDP for remore access with:
 ```
