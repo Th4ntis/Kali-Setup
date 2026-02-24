@@ -84,6 +84,8 @@ git clone --quiet https://github.com/carlospolop/PEASS-ng.git ~/Tools/PEASS-ng >
 echo -e "$green Complete"
 
 echo -e "\n$green Getting PCredz in directory ~/Tools/"
+sudo apt-get install python3-pip libpcap-dev
+pip3 install pcapy-ng
 git clone --quiet https://github.com/lgandx/PCredz.git ~/Tools/PCredz > /dev/null
 echo -e "$green Complete"
 
