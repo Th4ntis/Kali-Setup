@@ -30,9 +30,6 @@ echo -e "\n$green Copying fonts for ..."
 sudo mkdir /usr/share/fonts/truetype/MesloLGS
 sudo cp ~/Kali-Setup/fonts/* /usr/share/fonts/truetype/MesloLGS/
 
-echo -e "\n$green Making tools folder under ~/Tools"
-mkdir ~/Tools
-
 echo -e "\n$green Adding pipx to path"
 pipx ensurepath
 echo -e "$green Complete"
@@ -66,13 +63,20 @@ echo -e "\n$green Installing DonPAPI via pipx"
 pipx install donpapi
 echo -e "$green Complete"
 
+echo -e "\n$green Installiong AzureHound"
+go build -ldflags="-s -w -X github.com/bloodhoundad/azurehound/v2/constants.Version=`git describe tags --exact-match 2> /dev/null || git rev-parse HEAD`"
+echo -e "$green Complete"
+
+echo -e "\n$green Making tools folder under ~/Tools"
+mkdir ~/Tools
+
 echo -e "\n$green Getting PEASS in directory ~/Tools/"
 git clone --quiet https://github.com/carlospolop/PEASS-ng.git ~/Tools/PEASS-ng > /dev/null
 echo -e "$green Complete"
 
 echo -e "\n$green Getting PCredz in directory ~/Tools/"
 sudo apt-get install python3-pip libpcap-dev
-pip3 install pcapy-ng
+pip3 install pcapy-ng --break-system-packages
 git clone --quiet https://github.com/lgandx/PCredz.git ~/Tools/PCredz > /dev/null
 echo -e "$green Complete"
 
@@ -97,6 +101,34 @@ echo -e "$green Complete"
 
 echo -e "\n$green Getting SMBSpray in directory ~/Tools/"
 git clone --quiet https://github.com/absolomb/smbspray.git ~/Tools/SMBSpray > /dev/null
+echo -e "$green Complete"
+
+echo -e "\n$green Getting DNSDumpster in directory ~/Tools/"
+git clone --quiet https://github.com/nmmapper/dnsdumpster.git ~/Tools/DNSDumpster > /dev/null
+echo -e "$green Complete"
+
+echo -e "\n$green Getting Enum4Linux in directory ~/Tools/"
+git clone --quiet https://github.com/cddmp/enum4linux-ng.git ~/Tools/Enum4Linux > /dev/null
+echo -e "$green Complete"
+
+echo -e "\n$green Getting Fast Google Dork Scan(FGDS) in directory ~/Tools/"
+git clone --quiet https://github.com/IvanGlinkin/Fast-Google-Dorks-Scan.git ~/Tools/Fast-Google-Dorks-Scan > /dev/null
+echo -e "$green Complete"
+
+echo -e "\n$green Getting GNmap Parser in directory ~/Tools/"
+git clone --quiet https://github.com/jasonjfrank/gnmap-parser.git ~/Tools/GNmap-Parser > /dev/null
+echo -e "$green Complete"
+
+echo -e "\n$green Getting GraphRunner in directory ~/Tools/"
+git clone --quiet https://github.com/dafthack/GraphRunner.git ~/Tools/GraphRunner > /dev/null
+echo -e "$green Complete"
+
+echo -e "\n$green Getting Seclists in directory ~/Tools/"
+git clone --quiet https://github.com/danielmiessler/SecLists.git ~/Tools/Seclists > /dev/null
+echo -e "$green Complete"
+
+echo -e "\n$green Getting Statistically likely usernames in directory ~/Tools/"
+git clone --quiet https://github.com/insidetrust/statistically-likely-usernames.git ~/Tools/statistically-likely-usernames > /dev/null
 echo -e "$green Complete"
 
 echo -e "\n$green Installing Google Chrome..."
@@ -126,7 +158,7 @@ cd ~/Tools/hcxtools&& sudo make && sudo make install
 echo -e "$green Complete"
 
 echo -e "\n$green Installing Nessus"
-nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-debian10_amd64.deb" | grep -m1 -i ".deb")
+nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-ubuntu1604_amd64.deb" | grep -m1 -i ".deb")
 nessus_amd64="https://www.tenable.com/downloads/api/v2/pages/nessus/files/$nessus_amd64_file"
 sudo wget -q $nessus_amd64 -O /tmp/nessus_amd64.deb
 sudo dpkg -i /tmp/nessus_amd64.deb
