@@ -44,6 +44,7 @@ echo -e "$green Complete"
 source ~/.zshrc
 
 echo -e "\n$green Installing Netexec via pipx"
+sudo apt install -y rustc cargo build-essential pkg-config
 pipx install git+https://github.com/Pennyw0rth/NetExec
 echo -e "$green Complete"
 
