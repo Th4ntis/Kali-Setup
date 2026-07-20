@@ -65,6 +65,8 @@ pipx install donpapi
 echo -e "$green Complete"
 
 echo -e "\n$green Installiong AzureHound"
+git clone --quiet https://github.com/BloodHoundAD/AzureHound.git ~/Tools/AzureHound > /dev/null
+cd ~/Tools/AzureHound
 go build -ldflags="-s -w -X github.com/bloodhoundad/azurehound/v2/constants.Version=`git describe tags --exact-match 2> /dev/null || git rev-parse HEAD`"
 echo -e "$green Complete"
 
