@@ -64,14 +64,15 @@ echo -e "\n$green Installing DonPAPI via pipx"
 pipx install donpapi
 echo -e "$green Complete"
 
+echo -e "\n$green Making tools folder under ~/Tools"
+mkdir ~/Tools
+
 echo -e "\n$green Installiong AzureHound"
 git clone --quiet https://github.com/BloodHoundAD/AzureHound.git ~/Tools/AzureHound > /dev/null
 cd ~/Tools/AzureHound
 go build -ldflags="-s -w -X github.com/bloodhoundad/azurehound/v2/constants.Version=`git describe tags --exact-match 2> /dev/null || git rev-parse HEAD`"
+cd ~/
 echo -e "$green Complete"
-
-echo -e "\n$green Making tools folder under ~/Tools"
-mkdir ~/Tools
 
 echo -e "\n$green Getting PEASS in directory ~/Tools/"
 git clone --quiet https://github.com/carlospolop/PEASS-ng.git ~/Tools/PEASS-ng > /dev/null
@@ -160,16 +161,8 @@ git clone --quiet https://github.com/ZerBea/hcxtools.git ~/Tools/hcxtools > /dev
 cd ~/Tools/hcxtools&& sudo make && sudo make install
 echo -e "$green Complete"
 
-echo -e "\n$green Installing Nessus"
-nessus_amd64_file=$(curl https://www.tenable.com/downloads/nessus\?loginAttempted\=true | grep -o -m1 -E "Nessus-[0-9]{1,2}.[0-9]{1}.[0-9]{1}-ubuntu1604_amd64.deb" | grep -m1 -i ".deb")
-nessus_amd64="https://www.tenable.com/downloads/api/v2/pages/nessus/files/$nessus_amd64_file"
-sudo wget -q $nessus_amd64 -O /tmp/nessus_amd64.deb
-sudo dpkg -i /tmp/nessus_amd64.deb
-sudo rm -f /tmp/nessus_amd64.deb
-echo -e "$green Complete"
-
-#echo -e "\n$green Unzipping rockyou.txt"
-#cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
+echo -e "\n$green Unzipping rockyou.txt"
+cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
 
 echo -e "\n$green Getting config/dot files..."
 echo -e "\n$green Copying zshrc..."
