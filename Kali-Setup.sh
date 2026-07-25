@@ -148,21 +148,23 @@ echo -e "$green Complete"
 
 echo -e "\n$green Installing Hashcat Utils"
 git clone --quiet https://github.com/hashcat/hashcat-utils.git ~/Tools/hashcat-utils > /dev/null
-cd ~/Tools/hashcat-utils/src && sudo make && sudo cp *bin ../bin
 echo -e "$green Complete"
 
 echo -e "\n$green Installing HCXDumpTool"
 git clone --quiet https://github.com/ZerBea/hcxdumptool ~/Tools/hcxdumptool > /dev/null
 cd ~/Tools/hcxdumptool && sudo make && sudo make install
+cd ~/
 echo -e "$green Complete"
 
 echo -e "\n$green Installing HCXTools"
 git clone --quiet https://github.com/ZerBea/hcxtools.git ~/Tools/hcxtools > /dev/null
 cd ~/Tools/hcxtools&& sudo make && sudo make install
+cd ~/
 echo -e "$green Complete"
 
 echo -e "\n$green Unzipping rockyou.txt"
 cd /usr/share/wordlists && sudo gzip -dqf /usr/share/wordlists/rockyou.txt.gz
+cd ~/
 
 echo -e "\n$green Getting config/dot files..."
 echo -e "\n$green Copying zshrc..."
